@@ -29,5 +29,5 @@
 
 #### 使用说明
 
-sql初始化文件在parent工程下的sql文件夹
+sql初始化文件在parent工程下的sql文件夹下
 
