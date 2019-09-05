@@ -19,8 +19,8 @@ spring:
     virtualHost: /
 eureka:
   client:
-    #registerWithEureka: true #服务注册开关
-    #fetchRegistry: true #服务发现开关
+    registerWithEureka: true #服务注册开关
+    fetchRegistry: true #服务发现开关
     serviceUrl: #Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
       defaultZone: ${EUREKA_SERVER:http://192.168.2.101:50101/eureka/}
   instance:
