@@ -25,7 +25,7 @@ eureka:
       defaultZone: ${EUREKA_SERVER:http://192.168.2.101:50101/eureka/}
   instance:
     prefer-ip-address:  true  #将自己的ip地址注册到Eureka服务中
-    ip-address: ${IP_ADDRESS:127.0.0.1}  
+    ip-address: ${IP_ADDRESS:192.168.2.101}  
     instance-id: ${spring.application.name}:${server.port} #指定实例id
 cms:
   ip: 127.0.0.115534345
