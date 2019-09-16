@@ -32,7 +32,9 @@
 sql初始化文件在parent工程下的sql文件夹下
 
 ### 问题
-docker容器初始化的时候可以不指定端口，通过zuul网关访问，似乎eureka的配置中ip-address和instance-id冲突。两个只能存在一个，如果全都留下的话通过zuul访问报错 
+1、docker容器初始化的时候可以不指定端口，通过zuul网关访问，似乎eureka的配置中ip-address和instance-id冲突。两个只能存在一个，如果全都留下的话通过zuul访问报错 
+ 还是这个问题，今天在将zuul和cms服务搬到了测试环境，没有一点问题，搬到正式环境两个还是不能同时存在。  日了dog
+
 
 ### 测试环境生成容器暴漏端口，正式环境不爆露端口 通过zuul网关进行访问 搭配 grafana 和 Rancher 弹性扩容缩容
 
