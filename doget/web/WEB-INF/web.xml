@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <servlet>
+        <servlet-name>ClearServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.ClearServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClearServlet</servlet-name>
+        <url-pattern>/ClearServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.ListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListServlet</servlet-name>
+        <url-pattern>/ListServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.ProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/ProductServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SkipServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.SkipServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SkipServlet</servlet-name>
+        <url-pattern>/SkipServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>CartServlet</display-name>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/CartServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>CheckImgServlet</display-name>
+        <servlet-name>CheckImgServlet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.CheckImgServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckImgServlet</servlet-name>
+        <url-pattern>/CheckImgServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>ClearServletCaet</display-name>
+        <servlet-name>ClearServletCaet</servlet-name>
+        <servlet-class>com.itheima.autologin.web.servlet.ClearServletCaet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClearServletCaet</servlet-name>
+        <url-pattern>/ClearServletCaet</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.itheima.autologin.web.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/* </url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>GenericEncodingFilter</filter-name>
+        <filter-class>com.itheima.autologin.web.filter.GenericEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>GenericEncodingFilter</filter-name>
+        <url-pattern>/* </url-pattern>
+    </filter-mapping>
+
+
+</web-app>
