@@ -1,6 +1,2 @@
-target
-.git
 .idea
-.gitignore
-out
-.class
+target
