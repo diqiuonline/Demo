@@ -4,6 +4,7 @@ spring:
   application:
     name: xc-service-ucenter
   datasource:
+    #连接池
     druid:
       url: ${MYSQL_URL:jdbc:mysql://localhost:3306/xc_user?characterEncoding=utf-8}
       username: root
