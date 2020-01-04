@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/bos_fore/js/angular.min.js"></script>
+</head>
+<!--ng-app 是angular编程入口 是模块作用域-->
+<body ng-app>
+    <div>
+        <!--ng-model 模型作用-->
+        <input type="text" name="name" ng-model="name">
+    </div>
+    <div>
+        <!--{{}} 等价域ng-build用于数据显示-->
+        hello,{{name}}
+    </div>
+
+</body>
+</html>

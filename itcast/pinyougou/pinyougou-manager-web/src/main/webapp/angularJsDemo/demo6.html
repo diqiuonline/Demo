@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>循环</title>
+    <script type="text/javascript" src="angular.js"></script>
+    <script>
+        var app = angular.module('myApp',[]); //定义了一个叫myApp的模块
+        //定义控制器
+        app.controller('myController',function ($scope) {
+            $scope.list=[4253,345,243,52];
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<table>
+    <tr ng-repeat="x in list">
+        <td>{{x}}</td>
+    </tr>
+</table>
+</body>
+</html>
