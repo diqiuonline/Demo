@@ -4,7 +4,7 @@
 
 消息队列是一种“先进先出”的数据结构
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/queue1.png)
+![](img/queue1.png)
 
 其应用场景主要包含以下3个方面
 
@@ -12,19 +12,19 @@
 
 系统的耦合性越高，容错性就越低。以电商应用为例，用户创建订单后，如果耦合调用库存系统、物流系统、支付系统，任何一个子系统出了故障或者因为升级等原因暂时不可用，都会造成下单操作异常，影响用户使用体验。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/解耦1.png)
+![](img/解耦1.png)
 
 使用消息队列解耦合，系统的耦合性就会提高了。比如物流系统发生故障，需要几分钟才能来修复，在这段时间内，物流系统要处理的数据被缓存到消息队列中，用户的下单操作正常完成。当物流系统回复后，补充处理存在消息队列中的订单消息即可，终端系统感知不到物流系统发生过几分钟故障。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/解耦2.png)
+![](img/解耦2.png)
 
 * 流量削峰
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/mq-5.png)
+![](img/mq-5.png)
 
 应用系统如果遇到系统请求流量的瞬间猛增，有可能会将系统压垮。有了消息队列可以将大量请求缓存起来，分散到很长一段时间处理，这样可以大大提到系统的稳定性和用户体验。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/mq-6.png)
+![](img/mq-6.png)
 
 一般情况，为了保证系统的稳定性，如果系统负载超过阈值，就会阻止用户请求，这会影响用户体验，而如果使用消息队列将请求缓存起来，等待系统处理完毕后通知用户下单完毕，这样总不能下单体验要好。
 
@@ -34,11 +34,11 @@
 
 * 数据分发
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/mq-1.png)
+![](img/mq-1.png)
 
 通过消息队列可以让数据在多个系统更加之间进行流通。数据的产生方不需要关心谁来使用数据，只需要将数据发送到消息队列，数据使用方直接在消息队列中直接获取数据即可
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/mq-2.png)
+![](img/mq-2.png)
 
 ## 1.2 MQ的优点和缺点
 
@@ -68,7 +68,7 @@
 
 常见的MQ产品包括Kafka、ActiveMQ、RabbitMQ、RocketMQ。 
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MQ比较.png)
+![](img/MQ比较.png)
 
 # 2. RocketMQ快速入门
 
@@ -179,7 +179,7 @@ sh mqshutdown broker
 * Topic：区分消息的种类；一个发送者可以发送消息给一个或者多个Topic；一个消息的接收者可以订阅一个或者多个Topic消息
 * Message Queue：相当于是Topic的分区；用于并行发送和接收消息
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/RocketMQ角色.jpg)
+![](img/RocketMQ角色.jpg)
 
 ## 3.2 集群搭建方式
 
@@ -224,7 +224,7 @@ sh mqshutdown broker
 
 消息高可用采用2m-2s（同步双写）方式
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/RocketMQ集群.png)
+![](img/RocketMQ集群.png)
 
 ### 3.3.2 集群工作流程
 
@@ -721,7 +721,7 @@ nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-2s-sync/broker-a-s.properties &
 
 启动后通过JPS查看启动进程
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/jps1.png)
+![](img/jps1.png)
 
 ### 3.3.12 查看日志
 
@@ -1936,7 +1936,7 @@ tail -500f ~/logs/rocketmqlogs/broker.log
 
 `RocketMQ`有一个对其扩展的开源项目[incubator-rocketmq-externals](https://github.com/apache/rocketmq-externals)，这个项目中有一个子模块叫`rocketmq-console`，这个便是管理控制台项目了，先将[incubator-rocketmq-externals](https://github.com/apache/rocketmq-externals)拉到本地，因为我们需要自己对`rocketmq-console`进行编译打包运行。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/rocketmq-console.png)
+![](img/rocketmq-console.png)
 
 ### 3.5.2 下载并编译打包
 
@@ -1963,11 +1963,11 @@ java -jar rocketmq-console-ng-1.0.0.jar
 
 启动成功后，我们就可以通过浏览器访问`http://localhost:8080`进入控制台界面了，如下图：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/rocketmq-console2.png)
+![](img/rocketmq-console2.png)
 
 集群状态：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/rocketmq-console3.png)
+![](img/rocketmq-console3.png)
 
 # 4. 消息发送样例
 
@@ -2621,7 +2621,7 @@ consumer.start();
 
 ###4.6.1 流程分析
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/事务消息.png)
+![](img/事务消息.png)
 
 
 
@@ -2737,7 +2737,7 @@ public class TransactionListenerImpl implements TransactionListener {
 
 ###1）下单
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/下单组件图.png)
+![](img/下单组件图.png)
 
 1. 用户请求订单系统下单
 2. 订单系统通过RPC调用订单服务下单
@@ -2750,7 +2750,7 @@ public class TransactionListenerImpl implements TransactionListener {
 
 ###2）支付
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/支付组件图.png)
+![](img/支付组件图.png)
 
 1. 用户请求支付系统
 2. 支付系统调用第三方支付平台API进行发起支付流程
@@ -2767,11 +2767,11 @@ public class TransactionListenerImpl implements TransactionListener {
 
 如何保证数据的完整性？
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/下单失败流程图.png)
+![](img/下单失败流程图.png)
 
 <u>使用MQ保证在下单失败后系统数据的完整性</u>
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/下单时序图(2).png)
+![](img/下单时序图(2).png)
 
 ###问题2
 
@@ -2779,11 +2779,11 @@ public class TransactionListenerImpl implements TransactionListener {
 
 商家支付系统如何保证在收到第三方支付平台的异步通知时，如何快速给第三方支付凭条做出回应？
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/支付流程.png)
+![](img/支付流程.png)
 
 <u>通过MQ进行数据分发，提高系统处理性能</u>
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/支付成功数据分发流程图.png)
+![](img/支付成功数据分发流程图.png)
 
 # 2. 技术分析
 
@@ -2795,7 +2795,7 @@ public class TransactionListenerImpl implements TransactionListener {
 - RocketMQ
 - Mysql
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/项目结构图.png)
+![](img/项目结构图.png)
 
 ## 2.2 SpringBoot整合RocketMQ
 
@@ -2924,7 +2924,7 @@ public class Consumer implements RocketMQListener<String> {
 mvn install -Dmaven.skip.test=true
 ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/dubbo.png)
+![](img/dubbo.png)
 
 ### 2.3.1 搭建Zookeeper集群
 
@@ -2984,7 +2984,7 @@ server.3=192.168.25.140:2883:3883
 
 启动集群就是分别启动每个实例。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/zk.png)
+![](img/zk.png)
 
 
 
@@ -3342,7 +3342,7 @@ shop系统基于Maven进行项目管理
 
 ### 3.1.1 工程浏览
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/项目初始化.png)
+![](img/项目初始化.png)
 
 - 父工程：shop-parent
 - 订单系统：shop-order-web
@@ -3361,7 +3361,7 @@ shop系统基于Maven进行项目管理
 
 ### 3.1.2 工程关系
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/项目结构图.png)
+![](img/项目结构图.png)
 
 ## 3.3 Mybatis逆向工程使用
 
@@ -3396,7 +3396,7 @@ shop系统基于Maven进行项目管理
 
 # 4. 下单业务
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/下单时序图(2).png)
+![](img/下单时序图(2).png)
 
 ## 4.1 下单基本流程
 
@@ -3454,7 +3454,7 @@ public class OrderServiceImpl implements IOrderService {
 
 ###3）校验订单
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/校验订单(2).png)
+![](img/校验订单(2).png)
 
 ```java
 private void checkOrder(TradeOrder order) {
@@ -3488,7 +3488,7 @@ private void checkOrder(TradeOrder order) {
 
 ###4）生成预订单
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/生成预订单.png)
+![](img/生成预订单.png)
 
 ```java
 private Long savePreOrder(TradeOrder order) {
@@ -3691,7 +3691,7 @@ private void reduceMoneyPaid(TradeOrder order) {
 
 * 用户服务UserService,更新余额
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/更改用户余额.png)
+![](img/更改用户余额.png)
 
 ```java
 @Override
@@ -3917,7 +3917,7 @@ public class CancelOrderConsumer implements RocketMQListener<MessageExt>{
 
 * 流程分析
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/回退库存.png)
+![](img/回退库存.png)
 
 * 消息消费者
 
@@ -4218,7 +4218,7 @@ public void add(){
 
 ## 5.1 创建支付订单
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/创建支付订单.png)
+![](img/创建支付订单.png)
 
 ```java
 public Result createPayment(TradePay tradePay) {
@@ -4250,7 +4250,7 @@ public Result createPayment(TradePay tradePay) {
 
 ### 5.2.1 流程分析
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/12.支付后回调.png)
+![](img/12.支付后回调.png)
 
 ### 5.2.2 代码实现
 
@@ -4623,7 +4623,7 @@ public class PayTest {
 
 分布式队列因为有高可靠性的要求，所以数据要进行持久化存储。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息存储方式.png)
+![](img/消息存储方式.png)
 
 1. 消息生成者发送消息
 2. MQ收到消息，将消息进行持久化，在存储中新增一条记录
@@ -4638,13 +4638,13 @@ public class PayTest {
 
 Apache下开源的另外一款MQ—ActiveMQ（默认采用的KahaDB做消息存储）可选用JDBC的方式来做消息持久化，通过简单的xml配置信息即可实现JDBC消息存储。由于，普通关系型数据库（如Mysql）在单表数据量达到千万级别的情况下，其IO读写性能往往会出现瓶颈。在可靠性方面，该种方案非常依赖DB，如果一旦DB出现故障，则MQ的消息就无法落盘存储会导致线上故障
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MySQL.png)
+![](img/MySQL.png)
 
 - 文件系统
 
   目前业界较为常用的几款产品（RocketMQ/Kafka/RabbitMQ）均采用的是消息刷盘至所部署虚拟机/物理机的文件系统来做持久化（刷盘一般可以分为异步刷盘和同步刷盘两种模式）。消息刷盘为消息存储提供了一种高效率、高可靠性和高性能的数据持久化方式。除非部署MQ机器本身或是本地磁盘挂了，否则一般是不会出现无法持久化的故障问题。
 
-  ![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/磁盘.png)
+  ![](img/磁盘.png)
 
 
 ###1.1.2 性能对比
@@ -4674,7 +4674,7 @@ Linux操作系统分为【用户态】和【内核态】，文件操作、网络
 3. 然后从用户态 内存复制到网络驱动的内核态内存；
 4. 最后是从网络驱动的内核态内存复 制到网卡中进行传输。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/文件操作和网络操作.png)通过使用mmap的方式，可以省去向用户态的内存复制，提高速度。这种机制在Java中是通过MappedByteBuffer实现的
+![](img/文件操作和网络操作.png)通过使用mmap的方式，可以省去向用户态的内存复制，提高速度。这种机制在Java中是通过MappedByteBuffer实现的
 
 RocketMQ充分利用了上述特性，也就是所谓的“零拷贝”技术，提高消息存盘和网络发送的速度。
 
@@ -4684,7 +4684,7 @@ RocketMQ充分利用了上述特性，也就是所谓的“零拷贝”技术，
 
 RocketMQ消息的存储是由ConsumeQueue和CommitLog配合完成 的，消息真正的物理存储文件是CommitLog，ConsumeQueue是消息的逻辑队列，类似数据库的索引文件，存储的是指向物理存储的地址。每 个Topic下的每个Message Queue都有一个对应的ConsumeQueue文件。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息存储结构.png)
+![](img/消息存储结构.png)
 
 * CommitLog：存储消息的元数据
 * ConsumerQueue：存储消息在CommitLog的索引
@@ -4694,7 +4694,7 @@ RocketMQ消息的存储是由ConsumeQueue和CommitLog配合完成 的，消息�
 
 RocketMQ的消息是存储到磁盘上的，这样既能保证断电后恢复， 又可以让存储的消息量超出内存的限制。RocketMQ为了提高性能，会尽可能地保证磁盘的顺序写。消息在通过Producer写入RocketMQ的时 候，有两种写磁盘方式，分布式同步刷盘和异步刷盘。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/同步刷盘和异步刷盘.png)
+![](img/同步刷盘和异步刷盘.png)
 
 #### 1）同步刷盘
 
@@ -4710,7 +4710,7 @@ RocketMQ的消息是存储到磁盘上的，这样既能保证断电后恢复，
 
 ## 1.2 高可用性机制
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/RocketMQ角色.jpg)
+![](img/RocketMQ角色.jpg)
 
 RocketMQ分布式集群是通过Master和Slave的配合达到高可用性的。
 
@@ -4726,7 +4726,7 @@ Master角色的Broker支持读和写，Slave角色的Broker仅支持读，也就
 
 在创建Topic的时候，把Topic的多个Message Queue创建在多个Broker组上（相同Broker名称，不同 brokerId的机器组成一个Broker组），这样当一个Broker组的Master不可 用后，其他组的Master仍然可用，Producer仍然可以发送消息。 RocketMQ目前还不支持把Slave自动转成Master，如果机器资源不足， 需要把Slave转成Master，则要手动停止Slave角色的Broker，更改配置文 件，用新的配置文件启动Broker。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息发送高可用设计.jpg)
+![](img/消息发送高可用设计.jpg)
 
 ### 1.2.3 消息主从复制
 
@@ -4750,7 +4750,7 @@ Master角色的Broker支持读和写，Slave角色的Broker仅支持读，也就
 
 ####4）总结
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/复制刷盘.png)
+![](img/复制刷盘.png)
 
 实际应用中要结合业务场景，合理设置刷盘方式和主从复制方式， 尤其是SYNC_FLUSH方式，由于频繁地触发磁盘写动作，会明显降低 性能。通常情况下，应该把Master和Save配置成ASYNC_FLUSH的刷盘 方式，主从之间配置成SYNC_MASTER的复制方式，这样即使有一台 机器出故障，仍然能保证数据不丢，是个不错的选择。
 
@@ -4760,7 +4760,7 @@ Master角色的Broker支持读和写，Slave角色的Broker仅支持读，也就
 
 Producer端，每个实例在发消息的时候，默认会轮询所有的message queue发送，以达到让消息平均落在不同的queue上。而由于queue可以散落在不同的broker，所以消息就发送到不同的broker下，如下图：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/producer负载均衡.png)
+![](img/producer负载均衡.png)
 
 图中箭头线条上的标号代表顺序，发布方会把第一条消息发送至 Queue 0，然后第二条消息发送至 Queue 1，以此类推。
 
@@ -4774,11 +4774,11 @@ Producer端，每个实例在发消息的时候，默认会轮询所有的messag
 
 默认的分配算法是AllocateMessageQueueAveragely，如下图：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/consumer负载均衡.png)
+![](img/consumer负载均衡.png)
 
 还有另外一种平均的算法是AllocateMessageQueueAveragelyByCircle，也是平均分摊每一条queue，只是以环状轮流分queue的形式，如下图：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/consumer负载均衡2.png)
+![](img/consumer负载均衡2.png)
 
 需要注意的是，集群模式下，queue都是只允许分配只一个实例，这是由于如果多个实例同时消费一个queue的消息，由于拉取哪些消息是consumer主动控制的，那样会导致同一个消息在不同的实例下被消费多次，所以算法上都是一个queue只分给一个consumer实例，一个consumer实例可以允许同时分到不同的queue。
 
@@ -4792,7 +4792,7 @@ Producer端，每个实例在发消息的时候，默认会轮询所有的messag
 
 在实现上，其中一个不同就是在consumer分配queue的时候，所有consumer都分到所有的queue。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/consumer负载均衡3.png)
+![](img/consumer负载均衡3.png)
 
 ## 1.4 消息重试
 
@@ -4929,11 +4929,11 @@ public class MessageListenerImpl implements MessageListener {
 
 1. 在控制台查询出现死信队列的主题信息
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/死信队列主题.png)
+![](img/死信队列主题.png)
 
 2. 在消息界面根据主题查询死信消息
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/死信队列主题2.png)
+![](img/死信队列主题2.png)
 
 3. 选择重新发送消息
 
@@ -4994,7 +4994,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 从官方仓库 <https://github.com/apache/rocketmq> `clone`或者`download`源码。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码1.png)
+![](img/源码1.png)
 
 **源码目录结构：**
 
@@ -5020,7 +5020,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ###2.1.2 导入IDEA
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码2.png)
+![](img/源码2.png)
 
 **执行安装**
 
@@ -5032,19 +5032,19 @@ clean install -Dmaven.test.skip=true
 
 创建`conf`配置文件夹,从`distribution`拷贝`broker.conf`和`logback_broker.xml`和`logback_namesrv.xml`
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码6.png)
+![](img/源码6.png)
 
 #### 1）启动NameServer
 
 * 展开namesrv模块，右键NamesrvStartup.java
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码3.png)
+![](img/源码3.png)
 
 * 配置**ROCKETMQ_HOME**
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码4.png)
+![](img/源码4.png)
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码5.png)
+![](img/源码5.png)
 
 * 重新启动
 
@@ -5088,9 +5088,9 @@ abortFile=E:\\RocketMQ\\data\\rocketmq\\dataDir\\abort
 * 创建数据文件夹`dataDir`
 * 启动`BrokerStartup`,配置`broker.conf`和`ROCKETMQ_HOME`
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码7.png)
+![](img/源码7.png)
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/源码8.png)
+![](img/源码8.png)
 
 ####3）发送消息
 
@@ -5126,7 +5126,7 @@ consumer.setNamesrvAddr("127.0.0.1:9876");
 
 NameServer就是为了解决以上问题设计的。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/RocketMQ角色.jpg)
+![](img/RocketMQ角色.jpg)
 
 
 
@@ -5136,7 +5136,7 @@ NameServer本身的高可用是通过部署多台NameServer来实现，但彼此
 
 ### 2.2.2 启动流程
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/NameServer启动流程.png)
+![](img/NameServer启动流程.png)
 
 启动类：`org.apache.rocketmq.namesrv.NamesrvStartup`
 
@@ -5304,7 +5304,7 @@ private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> f
 
 ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/路由实体图.png)
+![](img/路由实体图.png)
 
 **topicQueueTable：**Topic消息队列路由信息，消息发送时根据路由表进行负载均衡
 
@@ -5318,15 +5318,15 @@ private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> f
 
 > RocketMQ基于定于发布机制，一个Topic拥有多个消息队列，一个Broker为每一个主题创建4个读队列和4个写队列。多个Broker组成一个集群，集群由相同的多台Broker组成Master-Slave架构，brokerId为0代表Master，大于0为Slave。BrokerLiveInfo中的lastUpdateTimestamp存储上次收到Broker心跳包的时间。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/实体数据实例.png)
+![](img/实体数据实例.png)
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/实体数据实例2.png)
+![](img/实体数据实例2.png)
 
 #### 2.2.3.2 路由注册
 
 #####1）发送心跳包
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/路由注册.png)
+![](img/路由注册.png)
 
 RocketMQ路由注册是通过Broker与NameServer的心跳功能实现的。Broker启动时向集群中所有的NameServer发送心跳信息，每隔30s向集群中所有NameServer发送心跳包，NameServer收到心跳包时会更新brokerLiveTable缓存中BrokerLiveInfo的lastUpdataTimeStamp信息，然后NameServer每隔10s扫描brokerLiveTable，如果连续120S没有收到心跳包，NameServer将移除Broker的路由信息同时关闭Socket连接。
 
@@ -5422,7 +5422,7 @@ RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, 
 
 ##### 2）处理心跳包
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/NameServer处理路由注册.png)
+![](img/NameServer处理路由注册.png)
 
 `org.apache.rocketmq.namesrv.processor.DefaultRequestProcessor`网路处理类解析请求类型，如果请求类型是为***REGISTER_BROKER***，则将请求转发到`RouteInfoManager#regiesterBroker`
 
@@ -5602,7 +5602,7 @@ if (MixAll.MASTER_ID != brokerId) {
 
 这两种方式路由删除的方法都是一样的，就是从相关路由表中删除与该broker相关的信息。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/路由删除.png)
+![](img/路由删除.png)
 
 ***代码：NamesrvController#initialize***
 
@@ -5799,19 +5799,19 @@ public RemotingCommand getRouteInfoByTopic(ChannelHandlerContext ctx,
 
 ### 2.2.4 小结
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/NameServer小结.png)
+![](img/NameServer小结.png)
 
 ## 2.3 Producer
 
 消息生产者的代码都在client模块中，相对于RocketMQ来讲，消息生产者就是客户端，也是消息的提供者。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/DefaultMQProducer类图.png)
+![](img/DefaultMQProducer类图.png)
 
 ###2.3.1 方法和属性
 
 ####1）主要方法介绍
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MQAdmin.png)
+![](img/MQAdmin.png)
 
 * ```java
   //创建主题
@@ -5857,7 +5857,7 @@ public RemotingCommand getRouteInfoByTopic(ChannelHandlerContext ctx,
   
   ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MQProducer.png)
+![](img/MQProducer.png)
 
 * ```java
   //启动
@@ -5941,7 +5941,7 @@ public RemotingCommand getRouteInfoByTopic(ChannelHandlerContext ctx,
 
 ####2）属性介绍
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/DefaultMQProducer属性.png)
+![](img/DefaultMQProducer属性.png)
 
 ```java
 producerGroup：生产者所属组
@@ -5958,7 +5958,7 @@ maxMessageSize：允许发送的最大消息长度，默认为4M
 
 ### 2.3.2 启动流程
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/生产者启动流程.png)
+![](img/生产者启动流程.png)
 
 ***代码：DefaultMQProducerImpl#start***
 
@@ -6030,7 +6030,7 @@ if (startFactory) {
 
 ### 2.3.3 消息发送
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息发送.png)
+![](img/消息发送.png)
 
 ***代码：DefaultMQProducerImpl#send(Message msg)***
 
@@ -6118,7 +6118,7 @@ private TopicPublishInfo tryToFindTopicPublishInfo(final String topic) {
 
 ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/Topic路由信息.png)
+![](img/Topic路由信息.png)
 
 ***代码：TopicPublishInfo***
 
@@ -6351,7 +6351,7 @@ public MessageQueue selectOneMessageQueue(final TopicPublishInfo tpInfo, final S
 
 ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/Broker故障延迟机制核心类.png)
+![](img/Broker故障延迟机制核心类.png)
 
 * 延迟机制接口规范
 
@@ -6690,7 +6690,7 @@ if (this.hasSendMessageHook()) {
 
 ### 2.3.4 批量消息发送
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/发送批量消息.png)
+![](img/发送批量消息.png)
 
 批量消息发送是将同一个主题的多条消息一起打包发送到消息服务端，减少网络调用次数，提高网络传输效率。当然，并不是在同一批次中发送的消息数量越多越好，其判断依据是单条消息的长度，如果单条消息内容比较长，则打包多条消息发送会影响其他线程发送消息的响应时间，并且单批次消息总长度不能超过DefaultMQProducer#maxMessageSize。
 
@@ -6737,7 +6737,7 @@ private MessageBatch batch(Collection<Message> msgs) throws MQClientException {
 
 ###2.4.1 消息存储核心类
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/DefaultMessageStore.png)
+![](img/DefaultMessageStore.png)
 
 ```java
 private final MessageStoreConfig messageStoreConfig;	//消息配置属性
@@ -6763,7 +6763,7 @@ private final LinkedList<CommitLogDispatcher> dispatcherList;	//CommitLog文件�
 
 ### 2.4.2 消息存储流程
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息存储流程.png)
+![](img/消息存储流程.png)
 
 ***消息存储入口：DefaultMessageStore#putMessage***
 
@@ -6986,7 +6986,7 @@ handleHA(result, putMessageResult, msg);
 
 ### 2.4.3 存储文件
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/存储文件.png)
+![](img/存储文件.png)
 
 - commitLog：消息存储目录
 - config：运行期间一些配置信息
@@ -7001,7 +7001,7 @@ RocketMQ通过使用内存映射文件提高IO访问性能，无论是CommitLog�
 
 ####1）MappedFileQueue
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MappedFileQueue.png)
+![](img/MappedFileQueue.png)
 
 ```java
 String storePath;	//存储目录
@@ -7132,7 +7132,7 @@ public long getMaxWrotePosition() {
 
 ####2）MappedFile
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/MappedFile.png)
+![](img/MappedFile.png)
 
 ```java
 int OS_PAGE_SIZE = 1024 * 4;		//操作系统每页大小,默认4K
@@ -7294,7 +7294,7 @@ protected void commit0(final int commitLeastPages) {
 
 刷写磁盘，直接调用MappedByteBuffer或fileChannel的force方法将内存中的数据持久化到磁盘，那么flushedPosition应该等于MappedByteBuffer中的写指针；如果writeBuffer不为空，则flushPosition应该等于上一次的commit指针；因为上一次提交的数据就是进入到MappedByteBuffer中的数据；如果writeBuffer为空，数据时直接进入到MappedByteBuffer，wrotePosition代表的是MappedByteBuffer中的指针，故设置flushPosition为wrotePosition。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/flush.jpg)
+![](img/flush.jpg)
 
 ```java
 public int flush(final int flushLeastPages) {
@@ -7396,7 +7396,7 @@ public void shutdown(final long intervalForcibly) {
 
 短暂的存储池。RocketMQ单独创建一个MappedByteBuffer内存缓存池，用来临时存储数据，数据先写入该内存映射中，然后由commit线程定时将数据从该内存复制到与目标物理文件对应的内存映射中。RocketMQ引入该机制主要的原因是提供一种内存锁定，将当前堆外内存一直锁定在内存中，避免被进程将内存交换到磁盘。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/TransientStorePool.png)
+![](img/TransientStorePool.png)
 
 ```java
 private final int poolSize;		//availableBuffers个数
@@ -7427,9 +7427,9 @@ public void init() {
 
 消息消费队文件、消息属性索引文件都是基于CommitLog文件构建的，当消息生产者提交的消息存储在CommitLog文件中，ConsumerQueue、IndexFile需要及时更新，否则消息无法及时被消费，根据消息属性查找消息也会出现较大延迟。RocketMQ通过开启一个线程ReputMessageService来准实时转发CommitLog文件更新事件，相应的任务处理器根据转发的消息及时更新ConsumerQueue、IndexFile文件。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息存储结构.png)
+![](img/消息存储结构.png)
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/构建消息消费队列和索引文件.png)
+![](img/构建消息消费队列和索引文件.png)
 
 ***代码：DefaultMessageStore：start***
 
@@ -7480,7 +7480,7 @@ for (int readSize = 0; readSize < result.getSize() && doNext; ) {
 
 ***DispatchRequest***
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/DispatchRequest.png)
+![](img/DispatchRequest.png)
 
 ```java
 String topic; //消息主题名称
@@ -7502,7 +7502,7 @@ byte[] bitMap;	//位图
 
 #### 1）转发到ConsumerQueue
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息分发到消息消费队列.png)
+![](img/消息分发到消息消费队列.png)
 
 ```java
 class CommitLogDispatcherBuildConsumeQueue implements CommitLogDispatcher {
@@ -7556,7 +7556,7 @@ if (mappedFile != null) {
 
 #### 2）转发到Index
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息分发到索引文件.png)
+![](img/消息分发到索引文件.png)
 
 ```java
 class CommitLogDispatcherBuildIndex implements CommitLogDispatcher {
@@ -7630,7 +7630,7 @@ public void buildIndex(DispatchRequest req) {
 
 由于RocketMQ存储首先将消息全量存储在CommitLog文件中，然后异步生成转发任务更新ConsumerQueue和Index文件。如果消息成功存储到CommitLog文件中，转发任务未成功执行，此时消息服务器Broker由于某个愿意宕机，导致CommitLog、ConsumerQueue、IndexFile文件数据不一致。如果不加以人工修复的话，会有一部分消息即便在CommitLog中文件中存在，但由于没有转发到ConsumerQueue，这部分消息将永远复发被消费者消费。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/文件恢复总体流程.png)
+![](img/文件恢复总体流程.png)
 
 ####1）存储文件加载
 
@@ -7994,7 +7994,7 @@ RocketMQ的存储是基于JDK NIO的内存映射机制（MappedByteBuffer）的�
 
 消息追加到内存后，立即将数据刷写到磁盘文件
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/同步刷盘流程.png)
+![](img/同步刷盘流程.png)
 
 ***代码：CommitLog#handleDiskFlush***
 
@@ -8016,7 +8016,7 @@ if (messageExt.isWaitStoreMsgOK()) {
 
 ***GroupCommitRequest***
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/GroupCommitRequest.png)
+![](img/GroupCommitRequest.png)
 
 ```java
 long nextOffset;	//刷盘点偏移量
@@ -8089,7 +8089,7 @@ private void doCommit() {
 
 在消息追加到内存后，立即返回给消息发送端。如果开启transientStorePoolEnable，RocketMQ会单独申请一个与目标物理文件（commitLog）同样大小的堆外内存，该堆外内存将使用内存锁定，确保不会被置换到虚拟内存中去，消息首先追加到堆外内存，然后提交到物理文件的内存映射中，然后刷写到磁盘。如果未开启transientStorePoolEnable，消息直接追加到物理文件直接映射文件中，然后刷写到磁盘中。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/异步刷盘流程.png)
+![](img/异步刷盘流程.png)
 
 开启transientStorePoolEnable后异步刷盘步骤:
 
@@ -8342,7 +8342,7 @@ RocketMQ支持局部顺序消息消费，也就是保证同一个消息队列上
 
 **<u>消息推送模式</u>**
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息推送.png)
+![](img/消息推送.png)
 
 **<u>消息消费重要方法</u>**
 
@@ -8360,7 +8360,7 @@ void unsubscribe(final String topic)：取消消息订阅
 
 **<u>DefaultMQPushConsumer</u>**
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/DefaultMQPushConsumer.png)
+![](img/DefaultMQPushConsumer.png)
 
 ```java
 //消费者组
@@ -8402,7 +8402,7 @@ private long consumeTimeout = 15;
 
 ### 2.5.3 消费者启动流程
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息消费启动流程.png)
+![](img/消息消费启动流程.png)
 
 ***代码：DefaultMQPushConsumerImpl#start***
 
@@ -8505,7 +8505,7 @@ public synchronized void start() throws MQClientException {
 
 从MQClientInstance的启动流程中可以看出，RocketMQ使用一个单独的线程PullMessageService来负责消息的拉取。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/pullMessageService实现机制.png)
+![](img/pullMessageService实现机制.png)
 
 ***代码：PullMessageService#run***
 
@@ -8532,7 +8532,7 @@ public void run() {
 
 <u>**PullRequest**</u>
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/PullRequest.png)
+![](img/PullRequest.png)
 
 ```java
 private String consumerGroup;	//消费者组
@@ -8565,7 +8565,7 @@ private void pullMessage(final PullRequest pullRequest) {
 
 ProcessQueue是MessageQueue在消费端的重现、快照。PullMessageService从消息服务器默认每次拉取32条消息，按照消息的队列偏移量顺序存放在ProcessQueue中，PullMessageService然后将消息提交到消费者消费线程池，消息成功消费后从ProcessQueue中移除。
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/ProcessQueue.png)
+![](img/ProcessQueue.png)
 
 **<u>属性</u>**
 
@@ -8613,7 +8613,7 @@ public List<MessageExt> takeMessags(final int batchSize)
 
 #####1.客户端发起拉取请求
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息拉取基本流程.png)
+![](img/消息拉取基本流程.png)
 
 ***代码：DefaultMQPushConsumerImpl#pullMessage***
 
@@ -8694,7 +8694,7 @@ public void pullMessage(final PullRequest pullRequest) {
 
 #####2.消息服务端Broker组装消息
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息服务端Broker组装消息.png)
+![](img/消息服务端Broker组装消息.png)
 
 ***代码：PullMessageProcessor#processRequest***
 
@@ -8845,7 +8845,7 @@ if (storeOffsetEnable) {
 
 #####3.消息拉取客户端处理消息
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息拉取客户端处理消息.png)
+![](img/消息拉取客户端处理消息.png)
 
 ***代码：MQClientAPIImpl#processPullResponse***
 
@@ -8892,7 +8892,7 @@ private List<MessageExt> msgFoundList;	//拉取的消息列表
 
 ```
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/PullStatus.png)
+![](img/PullStatus.png)
 
 ***代码：DefaultMQPushConsumerImpl$PullCallback#OnSuccess***
 
@@ -8917,7 +8917,7 @@ if (DefaultMQPushConsumerImpl.this.defaultMQPushConsumer.getPullInterval() > 0) 
 
 ##### 4.消息拉取总结
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/消息拉取流程总结.png)
+![](img/消息拉取流程总结.png)
 
 #### 4）消息拉取长轮询机制分析
 
@@ -9239,7 +9239,7 @@ c3:q3,q6
 
 PullMessageService负责对消息队列进行消息拉取，从远端服务器拉取消息后将消息存储ProcessQueue消息队列处理队列中，然后调用ConsumeMessageService#submitConsumeRequest方法进行消息消费，使用线程池来消费消息，确保了消息拉取与消息消费的解耦。ConsumeMessageService支持顺序消息和并发消息，核心类图如下：
 
-![](E:/库/Downloads/百度网盘/RocketMQ专题/资料/文档/img/ConsumeMessageService.png)
+![](img/ConsumeMessageService.png)
 
 **<u>并发消息消费</u>**
 
