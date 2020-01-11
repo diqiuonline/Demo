@@ -46,15 +46,52 @@ public class OrderServiceImpl implements IOrderService {
             //4扣减优惠卷
             updateCouponStatus(order);
             //5使用余额
+            reduceMoneyPaid(order);
             //6确认订单
+            updateOrderStatus(order);
             //7返回成功状态
 
-            return null;
+            return new Result(ShopCode.SHOP_SUCCESS.getSuccess(), ShopCode.SHOP_SUCCESS.getMessage());
         } catch (Exception e) {
             //1确认订单失败，发送消息
             //返回失败状态
 
             return null;
+        }
+    }
+
+    /**
+     * 确认订单
+     * @param order
+     */
+    private void updateOrderStatus(TradeOrder order) {
+        order.setOrderStatus(ShopCode.SHOP_ORDER_CONFIRM.getCode());
+        order.setPayStatus(ShopCode.SHOP_ORDER_PAY_STATUS_IS_PAY.getCode());
+        order.setConfirmTime(new Date());
+        int insert = orderMapper.insert(order);
+        if (insert <= 0) {
+            CastException.cast(ShopCode.SHOP_ORDER_CONFIRM_FAIL);
+        }
+        log.info("订单："+order.getOrderId()+" 确认陈工");
+    }
+
+    /**
+     * 使用余额
+     * @param order
+     */
+    private void reduceMoneyPaid(TradeOrder order) {
+        if (order.getMoneyPaid().compareTo(BigDecimal.ZERO) == 1 && !StringUtils.isEmpty(order.getMoneyPaid())) {
+            TradeUserMoneyLog userMoneyLog = new TradeUserMoneyLog();
+            userMoneyLog.setOrderId(order.getOrderId());
+            userMoneyLog.setUserId(order.getUserId());
+            userMoneyLog.setUseMoney(order.getMoneyPaid());
+            userMoneyLog.setMoneyLogType(ShopCode.SHOP_USER_MONEY_PAID.getCode());
+            userMoneyLog.setCreateTime(new Date());
+            Result result = userService.updateMoneyPaid(userMoneyLog);
+            if (result.getSuccess().equals(ShopCode.SHOP_FAIL.getSuccess())) {
+                CastException.cast(ShopCode.SHOP_USER_MONEY_REDUCE_FAIL);
+            }
+            log.info("订单："+order.getOrderId()+"扣减余额成功，扣减金额"+userMoneyLog.getUseMoney());
         }
     }
 
@@ -133,6 +170,7 @@ public class OrderServiceImpl implements IOrderService {
                     //使用的余额大于用户的余额
                     CastException.cast(ShopCode.SHOP_MONEY_PAID_INVALID);
                 }
+
             }
         } else {
             order.setMoneyPaid(BigDecimal.ZERO);
@@ -149,6 +187,8 @@ public class OrderServiceImpl implements IOrderService {
             if (coupon.getUserId().intValue() == ShopCode.SHOP_COUPON_ISUSED.getCode().intValue()) {
                 CastException.cast(ShopCode.SHOP_COUPON_ISUSED);
             }
+            order.setCouponPaid(coupon.getCouponPrice());
+
         } else {
             order.setCouponPaid(BigDecimal.ZERO);
         }

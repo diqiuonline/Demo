@@ -13,7 +13,6 @@
     <artifactId>shop-coupon-service</artifactId>
 
     <dependencies>
-
         <!--mybatis-springboot-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -25,6 +24,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
         </dependency>
 
         <dependency>

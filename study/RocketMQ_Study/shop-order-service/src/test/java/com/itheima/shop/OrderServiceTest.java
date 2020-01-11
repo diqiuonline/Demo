@@ -1,6 +1,7 @@
-package com.itheima.test;
+package com.itheima.shop;
 
-import com.itheima.shop.OrderServiceApplication;
+import com.itheima.api.IOrderService;
+import com.itheima.entity.Result;
 import com.itheima.shop.pojo.TradeOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,37 +9,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
+/**
+ * @author 李锦卓
+ * @version 1.0
+ * @date 2020/1/11 23:50
+ */
+@SpringBootTest
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OrderServiceApplication.class)
 public class OrderServiceTest {
-
     @Autowired
     private IOrderService orderService;
 
     @Test
-    public void confirmOrder() throws IOException {
-
-        Long coupouId = 345988230098857984L;
-        Long goodsId = 345959443973935104L;
-        Long userId = 345963634385633280L;
-
+    public void confirmOrder() {
+        long conponId = 34346546;
+        long userId = 345963634385633280L;
+        long goodsIs = 345959443973935104L;
         TradeOrder order = new TradeOrder();
-        order.setGoodsId(goodsId);
+        order.setGoodsId(goodsIs);
         order.setUserId(userId);
-        order.setCouponId(coupouId);
+        order.setCouponId(conponId);
         order.setAddress("北京");
         order.setGoodsNumber(1);
         order.setGoodsPrice(new BigDecimal(1000));
-        order.setShippingFee(BigDecimal.ZERO);
         order.setOrderAmount(new BigDecimal(1000));
+        order.setShippingFee(BigDecimal.ZERO );
         order.setMoneyPaid(new BigDecimal(100));
-        orderService.confirmOrder(order);
-
-        System.in.read();
-
+        order.setAddTime(new Date());
+        Result result = orderService.confirmOrder(order);
     }
-
 }
