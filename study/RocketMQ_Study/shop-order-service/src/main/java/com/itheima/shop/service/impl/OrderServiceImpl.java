@@ -2,18 +2,23 @@ package com.itheima.shop.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.itheima.api.ICouponService;
 import com.itheima.api.IGoodsService;
 import com.itheima.api.IOrderService;
 import com.itheima.api.IUserService;
 import com.itheima.constant.ShopCode;
+import com.itheima.entity.MQEntity;
 import com.itheima.entity.Result;
 import com.itheima.exception.CastException;
 import com.itheima.shop.mapper.TradeOrderMapper;
 import com.itheima.shop.pojo.*;
 import com.itheima.utils.IDWorker;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -34,6 +39,15 @@ public class OrderServiceImpl implements IOrderService {
     private IUserService userService;
     @Reference
     private ICouponService couponService;
+
+    @Value("${mq.order.topic}")
+    private String topic;
+
+    @Value("${mq.order.tag.cancel}")
+    private String tag;
+
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
     @Override
     public Result confirmOrder(TradeOrder order) {
         //1校验订单
@@ -47,6 +61,8 @@ public class OrderServiceImpl implements IOrderService {
             updateCouponStatus(order);
             //5使用余额
             reduceMoneyPaid(order);
+            //模拟异常抛出
+            CastException.cast(ShopCode.SHOP_FAIL);
             //6确认订单
             updateOrderStatus(order);
             //7返回成功状态
@@ -54,10 +70,37 @@ public class OrderServiceImpl implements IOrderService {
             return new Result(ShopCode.SHOP_SUCCESS.getSuccess(), ShopCode.SHOP_SUCCESS.getMessage());
         } catch (Exception e) {
             //1确认订单失败，发送消息
-            //返回失败状态
-
-            return null;
+            //订单id 优惠群id 用户id 余额 商品id 商品数量
+            MQEntity mqEntity = new MQEntity();
+            mqEntity.setOrderId(orderId);
+            mqEntity.setUserId(order.getUserId());
+            mqEntity.setUserMoney(order.getMoneyPaid());
+            mqEntity.setGoodsId(order.getGoodsId());
+            mqEntity.setGoodsNum(order.getGoodsNumber());
+            mqEntity.setCouponId(order.getCouponId());
+            //返回订单确认失败消息
+            try {
+                sendCancelOrder(topic,tag,order.getOrderId().toString(), JSON.toJSONString(mqEntity));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            log.info("订单："+order.getOrderId()+"确认失败");
+            return new Result(ShopCode.SHOP_FAIL.getSuccess(), ShopCode.SHOP_FAIL.getMessage());
         }
+    }
+
+    /**
+     * 发送订单确认失败消息
+     *
+     * @param topic
+     * @param tag
+     * @param keys
+     * @param body
+     */
+    private void sendCancelOrder(String topic, String tag, String keys, String body) throws Exception {
+        Message message = new Message(topic, tag, keys, body.getBytes());
+        rocketMQTemplate.getProducer().send(message);
+
     }
 
     /**
@@ -184,7 +227,7 @@ public class OrderServiceImpl implements IOrderService {
                 CastException.cast(ShopCode.SHOP_COUPON_NO_EXIST);
             }
             //6.2 判断优惠卷是否已经使用
-            if (coupon.getUserId().intValue() == ShopCode.SHOP_COUPON_ISUSED.getCode().intValue()) {
+            if (coupon.getIsUsed().intValue() == ShopCode.SHOP_COUPON_ISUSED.getCode().intValue()) {
                 CastException.cast(ShopCode.SHOP_COUPON_ISUSED);
             }
             order.setCouponPaid(coupon.getCouponPrice());
