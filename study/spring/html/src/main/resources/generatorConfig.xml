@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="D:\DevelopFiles\maven\apache-maven-3.6.3\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar" />
+    <!--<classPathEntry location="D:/Develop/maven/apache-maven-3.6.0/repository/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />-->
+    <context id="testTables" targetRuntime="MyBatis3">
+
+        <!-- 生成的pojo，将implements Serializable,为生成的Java模型类添加序列化接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+      <!--  <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/dangerdata?characterEncoding=utf-8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/shop_order?serverTimezone=Asia/Shanghai&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        <!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+            connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:ORCL"
+            userId="root"
+            password="root">
+        </jdbcConnection> -->
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator targetPackage="com.dhcc.Context.domain"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="com.dhcc.Context.dao"
+                         targetProject="src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <javaClientGenerator targetPackage="com.dhcc.Context.dao"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!-- 数据库表 -->
+        <!-- <table tableName="info_chemica" domainObjectName="InfoChemica"/>
+         <table tableName="info_chemistrycrafts" domainObjectName="InfoChemistrycrafts"/>
+         <table tableName="info_dangersource" domainObjectName="InfoDangersource"/>
+         <table tableName="info_enterprise" domainObjectName="InfoEnterprise"/>
+         <table tableName="user_enterprise" domainObjectName="UserEnterprise"/>-->
+
+
+        <!--<table tableName="trade_coupon" domainObjectName=""></table>
+        <table tableName="trade_goods" domainObjectName=""></table>
+        <table tableName="trade_goods_number_log" domainObjectName=""></table>
+        <table tableName="trade_order" domainObjectName=""></table>
+        <table tableName="trade_pay" domainObjectName=""></table>
+        <table tableName="trade_user" domainObjectName=""></table>
+        <table tableName="trade_user_money_log" domainObjectName=""></table>
+        <table tableName="trade_mq_consumer_log" domainObjectName=""></table>
+        <table tableName="trade_mq_producer_temp" domainObjectName=""></table>-->
+
+        <table schema="" tableName="context"></table>
+
+
+
+
+    </context>
+</generatorConfiguration>
