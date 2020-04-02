@@ -1,7 +1,6 @@
 package com.dhcc.test;
 
 import com.dhcc.config.Appconfig;
-import com.dhcc.service.CityService;
 import com.dhcc.service.L;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -16,8 +15,4 @@ public class test {
         L l = (L) ac.getBean("c");
         l.query();
     }
-
-
-
-
 }

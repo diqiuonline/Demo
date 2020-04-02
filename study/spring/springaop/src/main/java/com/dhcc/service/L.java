@@ -5,6 +5,7 @@ package com.dhcc.service;
  * @version 1.0
  * @date 2020/2/18 20:27
  */
+
 public interface L {
     public void query();
 }
