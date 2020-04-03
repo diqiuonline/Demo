@@ -249,6 +249,41 @@ AnnotationAwareAspectJAutoProxyCreator 这个循环中生成代理对象
 
 ![](image/doc_html_d67b47b7ee1e1c53.png)
 
+进入
+
+![](image/1.png)
+
+其中主要是最后一行代码
+
+![](image/2.png)
+
+进入
+
+![](image/3.png)
+
+这个getproxy（） 方法非常重要
+
+第一个createAopProxy() 方法 进入
+
+![](image/4.png)
+
+返回一个AopProxy接口
+
+![](image/5.png)
+
+这个接口有三个实现类 可以看到就是aop的两种实现方式 一个cglib  一个jdk动态代理
+进入createAopProxy（）
+
+![](image/6.png)
+
+返回jdk动态代理
+
+![](image/7.png)
+
+依据获取到的jdk动态代理对象 获取源对象的代理对象
+
+![](image/8.png)
+
 生成并返回代理对象，一直返回到getSingleton(String beanName,
 ObjectFactory\<?\> singletonFactory)方法 这是已经生成代理对象
 
@@ -265,6 +300,17 @@ ObjectFactory\<?\> singletonFactory)方法 这是已经生成代理对象
 \
 
 \
+BeanPostProcessor 类就是常说的后置处理器 它是一个接口 你写一个类实现了这个接口 你写的这个类就会在spring容器初始化的时候执行，它有两个方法 
+一个before 一个after 写在after中的方法就会类似aop样  在
+
+
+
+这个循环中执行
+如果是before中的方法 就会在前面的
+
+这个方法中执行 进入可以看到同样是一个for循环
+
+
 
 从源码可以看到 spring容器初始化的时候 会首先getbean 当获取不到
 调用getSingleton方法初始化bean
