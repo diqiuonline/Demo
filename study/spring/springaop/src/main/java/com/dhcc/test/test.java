@@ -11,7 +11,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class test {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Appconfig.class);
+        //AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Appconfig.class);
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+        ac.register(Appconfig.class);
+        ac.refresh();
         L l = (L) ac.getBean("c");
         l.query();
     }
