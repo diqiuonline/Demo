@@ -57,7 +57,7 @@ public class CancelMQListener implements RocketMQListener<MessageExt> {
             primaryKey.setMsgKey(keys);
             primaryKey.setGroupName(groupName);
             TradeMqConsumerLog mqConsumerLog = mqConsumerLogMapper.selectByPrimaryKey(primaryKey);
-            if (!StringUtils.isEmpty(messageExt)) {
+            if (!StringUtils.isEmpty(mqConsumerLog)) {
                 //3 判断如果消费过
                 // 3.1 获得消息处理状态
                 Integer status = mqConsumerLog.getConsumerStatus();
@@ -102,6 +102,7 @@ public class CancelMQListener implements RocketMQListener<MessageExt> {
                 mqConsumerLog.setMsgBody(body);
                 mqConsumerLog.setMsgId(msgId);
                 mqConsumerLog.setConsumerTimes(0);
+                mqConsumerLog.setGroupName(groupName);
                 //将消息处理的信息 添加到数据库
                 mqConsumerLogMapper.insert(mqConsumerLog);
             }
@@ -117,7 +118,7 @@ public class CancelMQListener implements RocketMQListener<MessageExt> {
             goodsNumberLog.setGoodsId(mqEntity.getGoodsId());
             goodsNumberLog.setGoodsNumber(mqEntity.getGoodsNum());
             goodsNumberLog.setLogTime(new Date());
-            goodsNumberLogMapper.insert(goodsNumberLog);
+            goodsNumberLogMapper.updateByPrimaryKey(goodsNumberLog);
             //6 将消息的处理状态改为成功
             mqConsumerLog.setConsumerStatus(ShopCode.SHOP_MQ_MESSAGE_STATUS_SUCCESS.getCode());
             mqConsumerLog.setConsumerTimestamp(new Date());
@@ -132,7 +133,6 @@ public class CancelMQListener implements RocketMQListener<MessageExt> {
             TradeMqConsumerLog mqConsumerLog = mqConsumerLogMapper.selectByPrimaryKey(primaryKey);
             if (StringUtils.isEmpty(mqConsumerLog)) {
                 //数据库未有记录 处理第一次失败
-                mqConsumerLog = new TradeMqConsumerLog();
                 mqConsumerLog = new TradeMqConsumerLog();
                 mqConsumerLog.setMsgTag(tags);
                 mqConsumerLog.setMsgKey(keys);
