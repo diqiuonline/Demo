@@ -24,7 +24,7 @@
         <springdataredis.version>1.4.1.RELEASE</springdataredis.version>
         <activemq.version>5.2.0</activemq.version>
         <shiro.version>1.2.2</shiro.version>
-        <springdatajpa.version>1.10.4.RELEASE</springdatajpa.version>
+        <springdatajpa.version>1.11.23.RELEASE</springdatajpa.version>
         <jedis.version>2.6.2</jedis.version>
         <poi.version>3.11</poi.version>
         <c3p0.version>0.9.1.2</c3p0.version>
@@ -238,7 +238,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.1.37</version>
+            <version>1.2.31</version>
         </dependency>
         <dependency>
             <groupId>com.colobu</groupId>
@@ -288,7 +288,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>1.12.4.RELEASE</version>
+            <version>1.13.13.RELEASE</version>
         </dependency>
         <!--ehcache缓存框架-->
         <dependency>
