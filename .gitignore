@@ -3,5 +3,9 @@ target/
 .idea/
 out/
 JeeSite/
-StockManagerSSM/
 job/
+*.log*
+.git/
+.github
+.gitignore
+study/RocketMQ_Study/rocketmq/data
