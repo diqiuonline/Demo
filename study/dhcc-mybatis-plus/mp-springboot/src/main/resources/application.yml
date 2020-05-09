@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/mp?serverTimezone=Asia/Shanghai&useSSL=false&nullCatalogMeansCurrent=true&characterEncoding=utf-8
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
+      initialSize: 5  #初始建立连接数量
+      minIdle: 5  #最小连接数量
+      maxActive: 20 #最大连接数量
+      maxWait: 10000  #获取连接最大等待时间，毫秒
+      testOnBorrow: true #申请连接时检测连接是否有效
+      testOnReturn: false #归还连接时检测连接是否有效
+      timeBetweenEvictionRunsMillis: 60000 #配置间隔检测连接是否有效的时间（单位是毫秒）
+      minEvictableIdleTimeMillis: 300000  #连接在连接池的最小生存时间（毫秒）
+
+mybatis-plus:
+#  global-config:
+#    db-config:   表名前缀，全局配置后可省略 @TableName()配置。
+#      table-prefix: tb_    默认值： null
+
+#  global-config:
+#    db-config:    #全局默认主键类型，设置后，即可省略实体对象中的@TableId(type = IdType.AUTO)配置。
+#      id-type: id_worker
+
+#  configuration:  全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存
+#    cache-enabled: false   默认值： true
+
+#  configuration:  是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射。
+#    map-underscore-to-camel-case: false  这个配置项和 mybatis-plus.mapper-locations 冲突  默认值： true
+
+#  type-aliases-package: com.dhcc.mp.simple.pojo    MyBaits 别名包扫描路径   resultType="User"
+
+#  config-location: classpath:mybatis-config.xml    MyBatis 配置文件位置
+
+#  mapper-locations: classpath*:com.dhcc.mp.simple.dao/*.xml    MyBatis Mapper 所对应的 XML 文件位置
