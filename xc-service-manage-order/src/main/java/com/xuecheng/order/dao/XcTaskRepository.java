@@ -13,7 +13,11 @@ import java.util.Date;
 public interface XcTaskRepository extends JpaRepository<XcTask, String> {
     //查询某个时间之前的的前n条任务
     Page<XcTask> findByUpdateTimeBefore(Pageable pageable, Date updateTime);
+
+    //乐观锁
     @Modifying
     @Query("update XcTask t set t.version = :version+1 where t.id = :id and t.version = :version")
-    public int updateTaskVersion(@Param(value = "id") String id, @Param(value = "version") int version);
+    public default int updateTaskVersion(@Param(value = "id") String id, @Param(value = "version") int version) {
+        return 0;
+    }
 }
