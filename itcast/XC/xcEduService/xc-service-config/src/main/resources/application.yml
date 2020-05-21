@@ -1,0 +1,20 @@
+server:
+  port: 19000
+spring:
+  application:
+    name: xc-service-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://192.168.2.101:3000/root/xc-service-config.git
+          username: root
+          password: root
+  rabbitmq:
+    host: 192.168.2.101
+management: #暴露触发消息总线的地址
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+

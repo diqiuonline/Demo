@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: ServiceLearning
+      profile: dev
+      label: master
+      uri: http://192.168.2.101:19000
