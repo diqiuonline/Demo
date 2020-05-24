@@ -41,7 +41,7 @@ public class TestMybatisPlusSptingboot {
     @Test
     //@Transactional(rollbackFor = false)
     public void insertQuick() throws Exception {
-        User user = new User(null, "lijinzhuo", "abcde", "李锦卓", 35, "453@daf.com");
+        User user = new User(null, "lijinzhuo", "abcde", "李锦卓", 35, "453@daf.com",1,0,null);
         int result = userMapper.insert(user);
         log.info(user.getId().toString());
     }
@@ -66,7 +66,7 @@ public class TestMybatisPlusSptingboot {
 
     @Test
     public void testSelectById() {
-        User user = this.userMapper.selectById(2L);
+        User user = this.userMapper.selectById(3L);
         System.out.println(user);
     }
 
@@ -88,7 +88,7 @@ public class TestMybatisPlusSptingboot {
         user.setPassword("8888888");
 
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name", "zhangsan"); //匹配user_name = zhangsan 的用户数据
+        wrapper.eq("username", "lijinzhuo"); //匹配user_name = zhangsan 的用户数据
 
         //根据条件做更新
         int result = this.userMapper.update(user, wrapper);
@@ -136,8 +136,7 @@ public class TestMybatisPlusSptingboot {
 
         //用法二：
         User user = new User();
-        user.setPassword("123456");
-        user.setUsername("caocao");
+        user.setId(4L);
 
         QueryWrapper<User> wrapper = new QueryWrapper<>(user);
 
@@ -187,7 +186,7 @@ public class TestMybatisPlusSptingboot {
     public void testSelectList(){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         //设置查询条件
-        wrapper.like("email", "itcast");
+        wrapper.like("email", "453@daf.com");
 
         List<User> users = this.userMapper.selectList(wrapper);
         for (User user : users) {
@@ -321,5 +320,14 @@ public class TestMybatisPlusSptingboot {
     public void demofindById() {
         User byId = userMapper.findById(1L);
         log.info(byId.toString());
+    }
+    @Test
+    public void testFindAll() {
+        List<User> all = userMapper.findAll();
+        //User byId = userMapper.findById(3L);
+        for (User user : all) {
+            //log.info(user.toString()+byId.toString());
+            log.info(user.toString());
+        }
     }
 }
