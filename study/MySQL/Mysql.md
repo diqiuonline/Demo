@@ -20,7 +20,7 @@
 https://dev.mysql.com/downloads/mysql/5.7.html#downloads
 ```
 
-![1555661091565](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/image-20200525223921903.png) 
+![1555661091565](assets/image-20200525223921903.png) 
 
 
 
@@ -101,7 +101,7 @@ flush privileges;
 
 MySQL官方对索引的定义为：索引（index）是帮助MySQL高效获取数据的数据结构（有序）。在数据之外，数据库系统还维护者满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据， 这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。如下面的==示意图==所示 : 
 
-![1555902055367](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555902055367.png) 
+![1555902055367](assets/1555902055367.png) 
 
 左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址（注意逻辑上相邻的记录在磁盘上也并不是一定物理相邻的）。为了加快Col2的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找快速获取到相应数据。
 
@@ -167,35 +167,35 @@ BTree又叫多路平衡搜索树，一颗m叉的BTree特性如下：
 
 1). 插入前4个字母 C N G A 
 
-![1555944126588](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944126588.png) 
+![1555944126588](assets/1555944126588.png) 
 
 2). 插入H，n>4，中间元素G字母向上分裂到新的节点
 
-![1555944549825](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944549825.png) 
+![1555944549825](assets/1555944549825.png) 
 
 3). 插入E，K，Q不需要分裂
 
-![1555944596893](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944596893.png) 
+![1555944596893](assets/1555944596893.png) 
 
 4). 插入M，中间元素M字母向上分裂到父节点G
 
-![1555944652560](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944652560.png) 
+![1555944652560](assets/1555944652560.png) 
 
 5). 插入F，W，L，T不需要分裂
 
-![1555944686928](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944686928.png) 
+![1555944686928](assets/1555944686928.png) 
 
 6). 插入Z，中间元素T向上分裂到父节点中 
 
-![1555944713486](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944713486.png) 
+![1555944713486](assets/1555944713486.png) 
 
 7). 插入D，中间元素D向上分裂到父节点中。然后插入P，R，X，Y不需要分裂
 
-![1555944749984](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944749984.png) 
+![1555944749984](assets/1555944749984.png) 
 
 8). 最后插入S，NPQR节点n>5，中间节点Q向上分裂，但分裂后父节点DGMT的n>5，中间节点M向上分裂
 
-![1555944848294](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555944848294.png) 
+![1555944848294](assets/1555944848294.png) 
 
 到此，该BTREE树就已经构建完成了， BTREE树 和 二叉树 相比， 查询数据的效率更高， 因为对于相同的数据量来说，BTREE的层级结构比二叉树小，因此搜索速度快。
 
@@ -211,7 +211,7 @@ B+Tree为BTree的变种，B+Tree与BTree的区别为：
 
 3). 所有的非叶子节点都可以看作是key的索引部分。
 
-![1555906287178](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/00001.jpg) 
+![1555906287178](assets/00001.jpg) 
 
 由于B+Tree只有叶子节点保存key信息，查询任何key都要从root走到叶子。所以B+Tree的查询效率更加稳定。
 
@@ -223,7 +223,7 @@ MySql索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础
 
 MySQL中的 B+Tree 索引结构示意图: 
 
-![1555906287178](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1555906287178.png)  
+![1555906287178](assets/1555906287178.png)  
 
 
 
@@ -290,7 +290,7 @@ index_col_name : column_name[(length)][ASC | DESC]
 
 示例 ： 为city表中的city_name字段创建索引 ；
 
-![1551438009843](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551438009843.png)    ​	  
+![1551438009843](assets/1551438009843.png)    ​	  
 
 ​	
 
@@ -304,9 +304,9 @@ show index  from  table_name;
 
 示例：查看city表中的索引信息；
 
-![1551440511890](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551440511890.png) 
+![1551440511890](assets/1551440511890.png) 
 
-![1551440544483](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551440544483.png) 	 
+![1551440544483](assets/1551440544483.png) 	 
 
 
 
@@ -320,7 +320,7 @@ DROP  INDEX  index_name  ON  tbl_name;
 
 示例 ： 想要删除city表上的索引idx_city_name，可以操作如下：
 
-![1551438238293](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551438238293.png) 	 
+![1551438238293](assets/1551438238293.png) 	 
 
 
 
@@ -432,7 +432,7 @@ select t.*,c.country_name from country c , city t where c.country_id = t.country
 
 查询视图 : 
 
-![1551503428635](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551503428635.png) 	
+![1551503428635](assets/1551503428635.png) 	
 
 
 
@@ -440,15 +440,15 @@ select t.*,c.country_name from country c , city t where c.country_id = t.country
 
 ​	从 MySQL 5.1 版本开始，使用 SHOW TABLES 命令的时候不仅显示表的名字，同时也会显示视图的名字，而不存在单独显示视图的 SHOW VIEWS 命令。
 
-![1551537565159](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551537565159.png)	 
+![1551537565159](assets/1551537565159.png)	 
 
 同样，在使用 SHOW TABLE STATUS 命令的时候，不但可以显示表的信息，同时也可以显示视图的信息。	
 
-![1551537646323](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551537646323.png) 
+![1551537646323](assets/1551537646323.png) 
 
 如果需要查询某个视图的定义，可以使用 SHOW CREATE VIEW 命令进行查看 ： 
 
-![1551588962944](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1551588962944.png)  
+![1551588962944](assets/1551588962944.png)  
 
 #### 3.4 删除视图
 
@@ -665,7 +665,7 @@ delimiter ;
 
 调用结果为 : 
 
-![1552057035580](E:/nihaoa/Downloads/百度网盘/Java学习路线图/5 视频-MySQL高级教程/资料-MySQL高级教程/MySQL 高级 - day-02/文档/assets/1552057035580.png) 
+![1552057035580](assets/1552057035580.png) 
 
 
 
