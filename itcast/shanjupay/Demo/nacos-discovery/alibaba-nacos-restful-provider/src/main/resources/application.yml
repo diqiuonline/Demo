@@ -1,0 +1,9 @@
+server:
+  port: 56010
+spring:
+  application:
+    name: alibaba-nacos-restful-provider #项目名
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.2.110:8848  #服务发现中心地址

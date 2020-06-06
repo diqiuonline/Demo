@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.2.110:8848  #服务发现中心地址
+        namespace: 0dfeeb8b-0c9e-4c7a-bcdf-c3e6656a22a5
+  application:
+    name: service2-server
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 56040
+dubbo:
+  scan:
+    #dubbo服务扫描基准包
+    base-packages: com.dhcc.microservice.service2.service
+  protocol:
+    #dubbo协议
+    name: dubbo
+    #dubbo 协议端口
+    port: 20891
+  registry:
+    address: nacos://192.168.2.110:8848
+  application:
+    qos-enable: false #dubbo运维服务是否开启
+  consumer:
+    check: false #启动时是否检查依赖服务

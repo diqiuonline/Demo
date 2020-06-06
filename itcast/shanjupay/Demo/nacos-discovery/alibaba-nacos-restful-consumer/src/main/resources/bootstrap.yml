@@ -1,0 +1,16 @@
+server:
+  port: 56020
+#配置服务提供方的ip和端口
+provider:
+  address: http://127.0.0.1:56010/service
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.2.110:8848  #服务发现中心地址
+        namespace: 0dfeeb8b-0c9e-4c7a-bcdf-c3e6656a22a5
+      config:
+        server-addr: 192.168.2.110:8848
+        file-extension: yaml #指定配置文件的扩展名
+  application:
+    name: alibaba-nacos-restful-consumer
