@@ -1,0 +1,5 @@
+server:
+  port: 56020
+#配置服务提供方的ip和端口
+provider:
+  address: http://127.0.0.1:56010/service
