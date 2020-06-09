@@ -1,0 +1,4 @@
+# ¸²¸Çspring©\boot©\mybatis©\plus.yamlµÄÏîÄ¿
+mybatis©\plus:
+    typeAliasesPackage: com.shanjupay.merchant.entity
+    mapper©\locations: classpath:com/shanjupay/*/mapper/*.xml
