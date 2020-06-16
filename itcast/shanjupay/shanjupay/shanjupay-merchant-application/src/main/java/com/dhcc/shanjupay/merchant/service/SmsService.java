@@ -1,5 +1,7 @@
 package com.dhcc.shanjupay.merchant.service;
 
+import com.shanjupay.common.domain.BusinessException;
+
 /**
  * @author 李锦卓
  * @version 1.0
@@ -13,6 +15,6 @@ public interface SmsService {
      */
     String SendMsg(String phone);
 
-    void checkVerifiyCode(String verifiyKey, String verifiyCode);
+    void checkVerifiyCode(String verifiyKey, String verifiyCode) ;
 
 }

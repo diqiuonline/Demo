@@ -1,5 +1,7 @@
 package com.dhcc.shanjupay.merchant.service;
 
+import com.shanjupay.common.domain.BusinessException;
+import com.shanjupay.common.domain.CommonErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,7 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public void checkVerifiyCode(String verifiyKey, String verifiyCode) {
+    public void checkVerifiyCode(String verifiyKey, String verifiyCode)   {
         //定义校验验证码的url
         String sms_verifiy_url = url+"/verify?name=sms&verificationCode="+verifiyCode+"&verificationKey="+verifiyKey;
         //使用resttempllate 请求校验验证码服务
@@ -74,10 +76,12 @@ public class SmsServiceImpl implements SmsService {
             resultBody = result.getBody();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("验证码校验失败");
+            //throw new RuntimeException("验证码校验失败");
+            throw new BusinessException(CommonErrorCode.E_100102);
         }
-        if (StringUtils.isEmpty(resultBody) || StringUtils.isEmpty(resultBody.get("result")) || !(boolean)resultBody.get("result")) {
-            throw new RuntimeException("验证码校验失败");
+        //int i = 1/0;
+        if (StringUtils.isEmpty(resultBody) || StringUtils.isEmpty(resultBody.get("result")) || !(Boolean)resultBody.get("result")) {
+            throw new BusinessException(CommonErrorCode.E_100102);
         }
 
 
