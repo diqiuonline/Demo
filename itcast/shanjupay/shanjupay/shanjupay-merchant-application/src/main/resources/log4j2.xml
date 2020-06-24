@@ -58,16 +58,7 @@
     <!--logger 定义-->
     <Loggers>
         <!--过滤掉spring和mybatis的一些无用的debug信息-->
-        <logger name="org.springframework" level="INFO">
-        </logger>
-        <logger name="org.mybatis" level="INFO">
-        </logger>
-        <logger name="springfox" level="INFO">
-        </logger>
-        <logger name="org.apache.http" level="INFO">
-        </logger>
-        <logger name="com.alibaba.nacos" level="WARN">
-        </logger>
+
 
         <!--自定义异步 logger 对象
             includeLocation="false" 关闭日志记录的行号信息

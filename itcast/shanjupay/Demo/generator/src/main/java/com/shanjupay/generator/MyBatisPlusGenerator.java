@@ -20,10 +20,12 @@ import java.util.Scanner;
  * MyBatis Plus Generator 配置执行类示例
  * </p>
  *
- * @author
+ * @李锦卓
  * @since
  */
 public class MyBatisPlusGenerator {
+    //是否生辰dto
+    private static final Boolean IS_DTO = true;
     /**
      * <p>
      * 读取控制台内容
@@ -68,7 +70,7 @@ public class MyBatisPlusGenerator {
 
 		// 交易服务
 		dataSourceConfig
-				.setUrl("jdbc:mysql://192.168.2.110:3306/shanjupay_merchant_service serverTimezone=Asia/Shanghai");
+				.setUrl("jdbc:mysql://192.168.2.110:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
 		// dataSourceConfig.setSchemaName("public");
 		dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
 		dataSourceConfig.setUsername("root");
@@ -143,7 +145,12 @@ public class MyBatisPlusGenerator {
         autoGenerator.setStrategy(strategyConfig);
         autoGenerator.setTemplateEngine(new FreemarkerTemplateEngine());
         System.out.println("===================== MyBatis Plus Generator ==================");
-
+        if (IS_DTO) {
+            globalConfig.setSwagger2(true);
+            globalConfig.setEntityName("%sDTO");
+            packageConfig.setEntity("dto");
+        }
+        //开始生成代码
         autoGenerator.execute();
 
         System.out.println("================= MyBatis Plus Generator Execute Complete ==================");

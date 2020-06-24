@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 <#if swagger2>
 @ApiModel(value="${entity}", description="${table.comment!}")
 </#if>
-<#if superEntityClass  >
+<#if superEntityClass??>
 public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
 <#elseif activeRecord>
 public class ${entity} extends Model<${entity}> {
@@ -36,7 +36,7 @@ public class ${entity} implements Serializable {
         <#assign keyPropertyName="${field.propertyName}"/>
     </#if>
 
-    <#if field.comment! length gt 0>
+    <#if field.comment!?length gt 0>
     <#if swagger2>
     @ApiModelProperty(value = "${field.comment}")
     <#else>
@@ -50,13 +50,13 @@ public class ${entity} implements Serializable {
     <#-- 主键 -->
         <#if field.keyIdentityFlag>
     @TableId(value = "${field.name}", type = IdType.AUTO)
-        <#elseif idType  >
+        <#elseif idType??>
     @TableId(value = "${field.name}", type = IdType.${idType})
         <#elseif field.convert>
     @TableId("${field.name}")
         </#if>
     <#-- 普通字段 -->
-    <#elseif field.fill  >
+    <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
     @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
@@ -105,14 +105,14 @@ public class ${entity} implements Serializable {
 
 <#if entityColumnConstant>
     <#list table.fields as field>
-    public static final String ${field.name upper_case} = "${field.name}";
+    public static final String ${field.name?upper_case} = "${field.name}";
 
     </#list>
 </#if>
 <#if activeRecord>
     @Override
     protected Serializable pkVal() {
-    <#if keyPropertyName  >
+    <#if keyPropertyName??>
         return this.${keyPropertyName};
     <#else>
         return null;

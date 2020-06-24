@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 <#else>
 import org.springframework.stereotype.Controller;
 </#if>
-<#if superControllerClassPackage  >
+<#if superControllerClassPackage??>
 import ${superControllerClassPackage};
 </#if>
 import ${package.Service}.${table.serviceName};
@@ -31,15 +31,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 </#if>
 @Api(value = "", tags = "", description="")
 <#if kotlin>
-class ${table.controllerName}<#if superControllerClass  > : ${superControllerClass}()</#if>
+class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
-<#if superControllerClass  >
+<#if superControllerClass??>
 public class ${table.controllerName} extends ${superControllerClass} {
 <#else>
 public class ${table.controllerName} {
 </#if>
 
     @Autowired
-    private ${entity}Service ${entity uncap_first}Service;
+    private I${entity}Service ${entity?uncap_first}Service;
 }
 </#if>
