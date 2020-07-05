@@ -30,7 +30,7 @@ import java.util.UUID;
  * @date 2020/6/9 20:14
  */
 @RestController
-@Api(value = "商户平台应用接口", tags = "商户平台应用接口", description = "商户平台应用接口")
+@Api(value = "商户平台-应用接口", tags = "商户平台-应用接口", description = "商户平台应用接口")
 public class MerchantController {
     public static final Logger log = LoggerFactory.getLogger(MerchantController.class);
     @Reference

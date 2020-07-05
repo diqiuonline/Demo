@@ -71,7 +71,7 @@ public class QiniuUtils {
         FileInputStream fileInputStream = null;
         try {
             //得到本地文件的字节数据
-            String filePath = "E:\\nihaoa\\Pictures\\炉石娘\\005ABbmNly1fpzly8mo8lj31hc0u0k2g (1).jpg";
+            String filePath = "E:\\新建文件夹\\微信图片_20200705120138.png";
             fileInputStream = new FileInputStream(new File(filePath));
             //得到本地的字节文件数据
             byte[] uploadBytes = IOUtils.toByteArray(fileInputStream);
@@ -116,7 +116,7 @@ public class QiniuUtils {
         }
     }
     public static void main(String[] args) {
-        //testUpload();
-        textDownloader();
+        testUpload();
+        //textDownloader();
     }
 }
