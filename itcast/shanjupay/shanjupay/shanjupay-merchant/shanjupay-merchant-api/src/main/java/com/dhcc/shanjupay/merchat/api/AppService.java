@@ -1,7 +1,9 @@
 package com.dhcc.shanjupay.merchat.api;
 
 import com.dhcc.shanjupay.merchat.api.dto.AppDTO;
-import com.shanjupay.common.domain.BusinessException;
+import com.dhcc.shanjupay.common.domain.BusinessException;
+
+import java.util.List;
 
 /**
  * 应用管理相关的接口
@@ -20,4 +22,12 @@ public interface AppService {
      * @throws BusinessException
      */
     AppDTO createApp(Long merchantId,AppDTO appDTO) throws BusinessException;
+
+    //更具商户id查询应用
+    List<AppDTO> queryAppByMerchant(Long merchantId) throws BusinessException;
+
+    //根据应用id查询应用
+    AppDTO getAppById(String appId) throws BusinessException;
+
+
 }

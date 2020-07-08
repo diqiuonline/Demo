@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dhcc.shanjupay.merchat.api.MerchantService;
 import com.dhcc.shanjupay.merchat.api.dto.MerchantDTO;
-import com.shanjupay.common.util.EncryptUtil;
+import com.dhcc.shanjupay.common.util.EncryptUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
