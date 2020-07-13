@@ -1,14 +1,13 @@
 package com.dhcc.shanjupay.merchant.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dhcc.shanjupay.merchant.convert.AppCovert;
 import com.dhcc.shanjupay.merchant.entity.App;
 import com.dhcc.shanjupay.merchant.entity.Merchant;
 import com.dhcc.shanjupay.merchant.mapper.AppMapper;
 import com.dhcc.shanjupay.merchant.mapper.MerchantMapper;
-import com.dhcc.shanjupay.merchat.api.AppService;
-import com.dhcc.shanjupay.merchat.api.dto.AppDTO;
+import com.dhcc.shanjupay.merchant.api.AppService;
+import com.dhcc.shanjupay.merchant.api.dto.AppDTO;
 import com.dhcc.shanjupay.common.domain.BusinessException;
 import com.dhcc.shanjupay.common.domain.CommonErrorCode;
 import org.apache.dubbo.config.annotation.Service;

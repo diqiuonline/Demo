@@ -6,15 +6,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dhcc.shanjupay.common.cache.Cache;
 import com.dhcc.shanjupay.common.domain.BusinessException;
 import com.dhcc.shanjupay.common.domain.CommonErrorCode;
-import com.dhcc.shanjupay.common.domain.ErrorCode;
 import com.dhcc.shanjupay.common.util.RedisUtil;
-import com.dhcc.shanjupay.merchat.api.AppService;
-import com.dhcc.shanjupay.merchat.api.dto.AppDTO;
+import com.dhcc.shanjupay.merchant.api.AppService;
+import com.dhcc.shanjupay.merchant.api.dto.AppDTO;
 import com.dhcc.shanjupay.transaction.api.PayChannelService;
 import com.dhcc.shanjupay.transaction.api.dto.PayChannelDTO;
 import com.dhcc.shanjupay.transaction.api.dto.PayChannelParamDTO;
 import com.dhcc.shanjupay.transaction.api.dto.PlatformChannelDTO;
-import com.dhcc.shanjupay.transaction.common.util.RedisCache;
 import com.dhcc.shanjupay.transaction.convert.PayChannelParamConvert;
 import com.dhcc.shanjupay.transaction.convert.PlatformChannelConvert;
 import com.dhcc.shanjupay.transaction.entity.AppPlatformChannel;
@@ -28,7 +26,6 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import java.security.KeyFactory;
 import java.util.List;
 
 /**

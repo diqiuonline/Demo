@@ -1,8 +1,8 @@
 package com.dhcc.shanjupay.merchant.controller;
 
 import com.dhcc.shanjupay.merchant.common.util.SecurityUtil;
-import com.dhcc.shanjupay.merchat.api.AppService;
-import com.dhcc.shanjupay.merchat.api.dto.AppDTO;
+import com.dhcc.shanjupay.merchant.api.AppService;
+import com.dhcc.shanjupay.merchant.api.dto.AppDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

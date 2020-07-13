@@ -1,7 +1,7 @@
 package com.dhcc.shanjupay.merchant.convert;
 
 import com.dhcc.shanjupay.merchant.entity.App;
-import com.dhcc.shanjupay.merchat.api.dto.AppDTO;
+import com.dhcc.shanjupay.merchant.api.dto.AppDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

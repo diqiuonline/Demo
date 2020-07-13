@@ -1,12 +1,9 @@
 package com.dhcc.shanjupay.merchant.convert;
 
 import com.dhcc.shanjupay.merchant.entity.Merchant;
-import com.dhcc.shanjupay.merchat.api.dto.MerchantDTO;
-import lombok.extern.slf4j.Slf4j;
+import com.dhcc.shanjupay.merchant.api.dto.MerchantDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author 李锦卓
