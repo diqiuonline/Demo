@@ -210,6 +210,12 @@ public class MerchantServiceImpl implements MerchantService  {
         storeStaffMapper.insert(storeStaff);
     }
 
+    @Override
+    public MerchantDTO queryMerchantByTenantId(Long tenantId) {
+        Merchant merchant = merchantMapper.selectOne(new LambdaQueryWrapper<Merchant>().eq(Merchant::getTenantId, tenantId));
+        return MerchantConvert.INSTANCE.entityToDto(merchant);
+    }
+
     //校验手机号是否存在
     private boolean isExisStaffByMobile(String mobile, Long merchantId) {
         Merchant merchant = merchantMapper.selectById(merchantId);

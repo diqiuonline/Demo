@@ -44,6 +44,16 @@ public class MerchantController {
         return merchantDTO;
     }
 
+    @ApiOperation("获取登录用户的商户信息")
+    @GetMapping(value="/my/merchants")
+    public MerchantDTO getMyMerchantInfo(){
+        //从token中获取商户id
+        Long merchantId = SecurityUtil.getMerchantId();
+        return merchantService.queryMerchantById(merchantId);
+    }
+
+
+
     @Autowired
     private SmsService smsService;
 

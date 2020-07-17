@@ -29,5 +29,6 @@ public interface MerchantService {
 
     //将员工设置位门店管理员
     void bindStaffToStore(Long storeId,Long StaffID) throws BusinessException;
-
+    //根据租户id查询商户信息
+    MerchantDTO queryMerchantByTenantId(Long tenantId);
 }
