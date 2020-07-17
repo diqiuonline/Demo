@@ -1,10 +1,15 @@
 package com.dhcc.Context.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Context implements Serializable {
-    private String id;
+public class Context  extends Model<Context> implements Serializable {
+    @TableId(type = IdType.NONE)
+    private Integer id;
 
     private String username;
 
@@ -14,12 +19,12 @@ public class Context implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -27,7 +32,7 @@ public class Context implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public Date getDatetime() {
@@ -43,21 +48,6 @@ public class Context implements Serializable {
     }
 
     public void setContext(String context) {
-        this.context = context == null ? null : context.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
-        sb.append(", datetime=").append(datetime);
-        sb.append(", context=").append(context);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        this.context = context;
     }
 }

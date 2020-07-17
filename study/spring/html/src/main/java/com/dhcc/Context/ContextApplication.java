@@ -1,11 +1,16 @@
 package com.dhcc.Context;
 
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * @author 李锦卓
@@ -18,7 +23,7 @@ public class ContextApplication {
         SpringApplication.run(ContextApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory){
         return new RestTemplate(factory);
     }
@@ -28,5 +33,16 @@ public class ContextApplication {
         factory.setReadTimeout(5000);//ms
         factory.setConnectTimeout(15000);//ms
         return factory;
+    }*/
+    @Bean
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate(new OkHttp3ClientHttpRequestFactory());
+        List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+        messageConverters.set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8) );
+        return restTemplate;
+    }
+    @Bean
+    public PerformanceInterceptor performanceInterceptor(){
+        return new PerformanceInterceptor();
     }
 }

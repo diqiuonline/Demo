@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dhcc.mp.simple.dao.UserMapper;
 import com.dhcc.mp.simple.pojo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import java.util.Map;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class TestMybatisPlusSptingboot {
     @Autowired
     private UserMapper userMapper;
@@ -38,13 +40,13 @@ public class TestMybatisPlusSptingboot {
         }
     }
 
-    @Test
+    //@Test
     //@Transactional(rollbackFor = false)
-    public void insertQuick() throws Exception {
+   /* public void insertQuick() throws Exception {
         User user = new User(null, "lijinzhuo", "abcde", "李锦卓", 35, "453@daf.com",1,0,null);
         int result = userMapper.insert(user);
         log.info(user.getId().toString());
-    }
+    }*/
 
     @Test
     public void updateQuick() throws Exception {
