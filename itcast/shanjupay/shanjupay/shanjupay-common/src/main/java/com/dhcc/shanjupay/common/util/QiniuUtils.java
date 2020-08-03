@@ -71,7 +71,7 @@ public class QiniuUtils {
         FileInputStream fileInputStream = null;
         try {
             //得到本地文件的字节数据
-            String filePath = "E:\\新建文件夹\\微信图片_20200705120138.png";
+            String filePath = "E:\\nihaoa\\Pictures\\H\\夏总\\夏总11.jpg";
             fileInputStream = new FileInputStream(new File(filePath));
             //得到本地的字节文件数据
             byte[] uploadBytes = IOUtils.toByteArray(fileInputStream);
@@ -101,8 +101,8 @@ public class QiniuUtils {
     }
     private static void textDownloader() {
         try {
-            String fileName = "b4a5cfd2-c2c3-4b9b-a28e-96eebc8e40e7.jpg";
-            String domainOfBucket = "http://qc0b4tqmh.bkt.clouddn.com";
+            String fileName = "8da09cc3-b8bd-48a9-a536-10ac1e80ff1f.jpg";
+            String domainOfBucket = "http://qdnrq0li1.bkt.clouddn.com";
             String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
             String publicUrl = String.format("%s/%s", domainOfBucket, encodedFileName);
             String accessKey = "42FjT8A6B_nU_uN4Pxg1EB7IgB3aT9zTeIMQz7Pc";
@@ -116,7 +116,7 @@ public class QiniuUtils {
         }
     }
     public static void main(String[] args) {
-        testUpload();
-        //textDownloader();
+        //testUpload();
+        textDownloader();
     }
 }

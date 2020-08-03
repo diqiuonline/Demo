@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Map;
 
 /***
@@ -77,4 +78,10 @@ public class SecurityUtil {
 		return user;
 	}
 
+
+	public static void main(String[] args) {
+		Long aLong = 1595167807 * 1000L;
+		Date date = new Date(aLong);
+		System.out.println(date);
+	}
 }
