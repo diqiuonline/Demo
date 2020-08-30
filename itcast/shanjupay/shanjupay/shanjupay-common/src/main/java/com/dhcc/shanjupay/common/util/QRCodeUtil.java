@@ -15,6 +15,9 @@ import javax.servlet.ServletOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 /**
@@ -77,7 +80,8 @@ public class QRCodeUtil {
 	public static void main(String[] args) throws IOException {
 		QRCodeUtil qrCodeUtil = new QRCodeUtil();
 //		String qrCode = qrCodeUtil.createQRCode("http://192.168.159.1:56050/transaction/alipaytest", 200, 200);
-		String qrCode = qrCodeUtil.createQRCode("http://192.168.1.5:56050/transaction/alipaytest", 200, 200);
+		//String qrCode = qrCodeUtil.createQRCode("http://192.168.1.5:56050/transaction/alipaytest", 200, 200);
+		String qrCode = qrCodeUtil.createQRCode("http://192.168.1.5:56010/transaction/pay-entry/JTdCJTIyYXBwSWQlMjIlM0ElMjIwMGM2Mzk1NC0yODlmLTQ2OTEtYjY0NS05YjEzMjkwMzczMjUlMjIlMkMlMjJib2R5JTIyJTNBJTIyJUU1JTkwJTkxMTEwJUU0JUJDJTgxJUU0JUI4JTlBJUU1JTkwJThEJUU3JUE3JUIwJUU0JUJCJTk4JUU2JUFDJUJFJTIyJTJDJTIyY2hhbm5lbCUyMiUzQSUyMnNoYW5qdV9jMmIlMjIlMkMlMjJtZXJjaGFudElkJTIyJTNBMTI4NDQyMjQ5NDg5NDg5OTIwMSUyQyUyMnN0b3JlSWQlMjIlM0ExMjg0NDIyNDk0OTE1ODcwNzIyJTJDJTIyc3ViamVjdCUyMiUzQSUyMjExMCVFNCVCQyU4MSVFNCVCOCU5QSVFNSU5MCU4RCVFNyVBNyVCMCVFNSU5NSU4NiVFNSU5MyU4MSUyMiU3RA==", 200, 200);
 		System.out.println(qrCode);
 	}
 

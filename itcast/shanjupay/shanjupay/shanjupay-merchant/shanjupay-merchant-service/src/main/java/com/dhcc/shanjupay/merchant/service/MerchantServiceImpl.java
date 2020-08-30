@@ -2,6 +2,9 @@ package com.dhcc.shanjupay.merchant.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dhcc.shanjupay.common.domain.PageVO;
 import com.dhcc.shanjupay.common.util.StringUtil;
 import com.dhcc.shanjupay.merchant.api.dto.StaffDTO;
 import com.dhcc.shanjupay.merchant.convert.MerchantConvert;
@@ -214,6 +217,46 @@ public class MerchantServiceImpl implements MerchantService  {
     public MerchantDTO queryMerchantByTenantId(Long tenantId) {
         Merchant merchant = merchantMapper.selectOne(new LambdaQueryWrapper<Merchant>().eq(Merchant::getTenantId, tenantId));
         return MerchantConvert.INSTANCE.entityToDto(merchant);
+    }
+
+    /**
+     * 门店列表的查询
+     *
+     * @param storeDTO 查询条件，必要参数：商户id
+     * @param pageNo   页码
+     * @param pageSize 分页记录数
+     * @return
+     */
+    @Override
+    public PageVO<StoreDTO> queryStoreByPage(StoreDTO storeDTO, Integer pageNo, Integer pageSize) {
+        //分页条件
+        Page<Store> page = new Page<>(pageNo, pageSize);
+        //筛选条件
+        LambdaQueryWrapper<Store> storeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        //如果传入的商户id不为空 此时要拼装查询条件
+        if (!StringUtils.isEmpty(storeDTO) && !StringUtils.isEmpty(storeDTO.getMerchantId())) {
+            storeLambdaQueryWrapper.eq(Store::getMerchantId, storeDTO.getMerchantId());
+        }
+        if (!StringUtils.isEmpty(storeDTO) && !StringUtils.isEmpty(storeDTO.getStoreName())) {
+            storeLambdaQueryWrapper.eq(Store::getStoreName, storeDTO.getStoreName());
+        }
+        //查询数据库
+        IPage<Store> storeIPage = storeMapper.selectPage(page, storeLambdaQueryWrapper);
+        List<Store> records = storeIPage.getRecords();
+        List<StoreDTO> storeDTOS = StoreConvert.INSTANCE.listentity2dto(records);
+
+        return new PageVO(storeDTOS,storeIPage.getTotal(),pageNo,pageSize);
+    }
+    /**
+     * 校验门店是否属于商户
+     * @param StoreId
+     * @param merchantId
+     * @return ture 存在 false 不存在
+     */
+    @Override
+    public Boolean queryStoreInMerchant(Long StoreId, Long merchantId) {
+        Integer count = storeMapper.selectCount(new LambdaQueryWrapper<Store>().eq(Store::getId, StoreId).eq(Store::getMerchantId, merchantId));
+        return count > 0;
     }
 
     //校验手机号是否存在

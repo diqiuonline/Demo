@@ -17,6 +17,11 @@
             <artifactId>shanjupay-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.dhcc</groupId>
+            <artifactId>shanjupay-payment-agent-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

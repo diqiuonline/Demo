@@ -33,7 +33,7 @@ public class WxPayController {
     //申请授权码地址
     String wxOAuth2RequestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize";
     //授权回调地址
-    String wxOAuth2CodeReturnUrl = "http://xfc.nat300.top/transaction/wx-oauth-code-return";
+    String wxOAuth2CodeReturnUrl = "http://hqkay2.natappfree.cc/transaction/wx-oauth-code-return";
     String state="";
 
     //获取授权码
@@ -45,7 +45,7 @@ public class WxPayController {
                 appID, wxOAuth2CodeReturnUrl
         );
 
-        return "redirect:"+url;
+         return "redirect:"+url;
 
     }
 
@@ -72,7 +72,7 @@ public class WxPayController {
         //获取openid
         String openid = JSON.parseObject(body).getString("openid");
         //重定向到统一下单接口
-        return "redirect:http://xfc.nat300.top/transaction/wxjspay?openid=" + openid;
+        return "redirect:http://hqkay2.natappfree.cc/transaction/wxjspay?openid=" + openid;
     }
 
 

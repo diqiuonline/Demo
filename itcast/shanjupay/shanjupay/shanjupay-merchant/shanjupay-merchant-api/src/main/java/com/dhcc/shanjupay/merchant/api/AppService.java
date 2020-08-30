@@ -29,5 +29,7 @@ public interface AppService {
     //根据应用id查询应用
     AppDTO getAppById(String appId) throws BusinessException;
 
+    //校验应用是否输入商户 true 表试存在 false 表示不存在
+    Boolean queryAppInMerchant(String appId, Long merchantId);
 
 }

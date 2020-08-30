@@ -16,6 +16,7 @@
         <module>shanjupay-gateway</module>
         <module>shanjupay-uaa</module>
         <module>shanjupay-user</module>
+        <module>shanjupay-payment-agent</module>
     </modules>
 
     <parent>

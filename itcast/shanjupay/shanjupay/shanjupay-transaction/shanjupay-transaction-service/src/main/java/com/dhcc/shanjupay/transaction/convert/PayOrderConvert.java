@@ -1,9 +1,10 @@
 package com.dhcc.shanjupay.transaction.convert;
 
-import com.dhcc.shanjupay.transaction.api.dto.OrderResultDTO;
 import com.dhcc.shanjupay.transaction.api.dto.PayOrderDTO;
 import com.dhcc.shanjupay.transaction.entity.PayOrder;
+import com.dhcc.shanjupay.transaction.vo.OrderConfirmVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -11,12 +12,12 @@ public interface PayOrderConvert {
 
     PayOrderConvert INSTANCE = Mappers.getMapper(PayOrderConvert.class);
 
-    OrderResultDTO request2dto(PayOrderDTO payOrderDTO);
+    PayOrderDTO entity2dto(PayOrder entity);
 
-    PayOrderDTO dto2request(OrderResultDTO OrderResult);
+    PayOrder dto2entity(PayOrderDTO dto);
 
-    OrderResultDTO entity2dto(PayOrder entity);
-
-    PayOrder dto2entity(OrderResultDTO dto);
+    //忽略totalAmount，不做映射
+    @Mapping(target = "totalAmount", ignore = true)
+    PayOrderDTO vo2dto(OrderConfirmVO vo);
 
 }

@@ -1,5 +1,6 @@
 package com.dhcc.shanjupay.merchant.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dhcc.shanjupay.merchant.convert.AppCovert;
 import com.dhcc.shanjupay.merchant.entity.App;
@@ -80,6 +81,12 @@ public class AppServiceImpl implements AppService {
         wrapper.eq("APP_ID", appId);
         App app = appMapper.selectOne(wrapper);
         return AppCovert.INSTANCE.entityToDto(app);
+    }
+
+    @Override
+    public Boolean queryAppInMerchant(String appId, Long merchantId) {
+        Integer integer = appMapper.selectCount(new LambdaQueryWrapper<App>().eq(App::getAppId, appId).eq(App::getMerchantId, merchantId));
+        return integer > 0;
     }
 
     private boolean isExistAppName(String appName) {
