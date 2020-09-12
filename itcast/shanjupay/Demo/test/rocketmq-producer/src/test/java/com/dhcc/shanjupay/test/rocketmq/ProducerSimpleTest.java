@@ -23,7 +23,9 @@ public class ProducerSimpleTest {
 
     @Test
     public void testSendSyncMsg(){
-        producerSimple.sendSyncMsg("my-topic","第2条同步消息");
+            producerSimple.sendSyncMsg("my-topic","1条同步消息");
+
+
     }
 
     @Test

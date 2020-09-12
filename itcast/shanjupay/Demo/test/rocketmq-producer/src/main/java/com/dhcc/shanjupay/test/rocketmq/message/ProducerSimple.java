@@ -27,7 +27,7 @@ public class ProducerSimple {
      */
     public void sendSyncMsg(String topic,String msg){
         SendResult sendResult = rocketMQTemplate.syncSend(topic, msg);
-        System.out.println("");
+        System.out.println(sendResult.getMessageQueue());
     }
 
 
@@ -37,6 +37,7 @@ public class ProducerSimple {
      * @param msg
      */
     public void sendASyncMsg(String topic,String msg){
+        //int i = 1/0;
         rocketMQTemplate.asyncSend(topic, msg, new SendCallback() {
 
             //消息发送成功的回调
