@@ -2,7 +2,6 @@ target/
 *iml
 .idea/
 out/
-JeeSite/
 job/
 *.log*
 .git/
@@ -11,3 +10,4 @@ job/
 study/RocketMQ_Study/rocketmq/data
 node_modules/
 *.sql
+/RuoYi-Cloud
