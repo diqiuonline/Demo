@@ -3,11 +3,11 @@ target/
 .idea/
 out/
 job/
-*.log*
+*log*
 .git/
 .github
 .gitignore
 study/RocketMQ_Study/rocketmq/data
 node_modules/
 *.sql
-/RuoYi-Cloud
+RuoYi-Cloud/
