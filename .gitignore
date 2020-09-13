@@ -2,10 +2,10 @@ target/
 *iml
 .idea/
 out/
-JeeSite/
-job/
-*.log*
+*log*
 .git/
 .github
 .gitignore
 study/RocketMQ_Study/rocketmq/data
+node_modules/
+RuoYi-Cloud/

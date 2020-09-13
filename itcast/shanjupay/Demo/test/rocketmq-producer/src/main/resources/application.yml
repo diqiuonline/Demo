@@ -1,0 +1,15 @@
+server:
+  port: 8181 #服务端口
+  servlet:
+    context-path: /rocketmq-producer
+
+spring:
+  application:
+    name: rocketmq-producer #指定服务名
+rocketmq:
+  nameServer: 192.168.2.110:9876
+  producer:
+    group: demo-producer-group
+logging:
+  level:
+    root: info

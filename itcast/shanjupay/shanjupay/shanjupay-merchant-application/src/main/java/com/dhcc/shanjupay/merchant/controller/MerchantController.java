@@ -7,11 +7,11 @@ import com.dhcc.shanjupay.merchant.service.FileService;
 import com.dhcc.shanjupay.merchant.service.SmsService;
 import com.dhcc.shanjupay.merchant.vo.MerchantDetailVO;
 import com.dhcc.shanjupay.merchant.vo.MerchantRegisterVO;
-import com.dhcc.shanjupay.merchat.api.MerchantService;
-import com.dhcc.shanjupay.merchat.api.dto.MerchantDTO;
-import com.shanjupay.common.domain.BusinessException;
-import com.shanjupay.common.domain.CommonErrorCode;
-import com.shanjupay.common.util.PhoneUtil;
+import com.dhcc.shanjupay.merchant.api.MerchantService;
+import com.dhcc.shanjupay.merchant.api.dto.MerchantDTO;
+import com.dhcc.shanjupay.common.domain.BusinessException;
+import com.dhcc.shanjupay.common.domain.CommonErrorCode;
+import com.dhcc.shanjupay.common.util.PhoneUtil;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ import java.util.UUID;
  * @date 2020/6/9 20:14
  */
 @RestController
-@Api(value = "商户平台应用接口", tags = "商户平台应用接口", description = "商户平台应用接口")
+@Api(value = "商户平台-应用接口", tags = "商户平台-应用接口", description = "商户平台应用接口")
 public class MerchantController {
     public static final Logger log = LoggerFactory.getLogger(MerchantController.class);
     @Reference
@@ -43,6 +43,16 @@ public class MerchantController {
         log.info(merchantDTO.toString());
         return merchantDTO;
     }
+
+    @ApiOperation("获取登录用户的商户信息")
+    @GetMapping(value="/my/merchants")
+    public MerchantDTO getMyMerchantInfo(){
+        //从token中获取商户id
+        Long merchantId = SecurityUtil.getMerchantId();
+        return merchantService.queryMerchantById(merchantId);
+    }
+
+
 
     @Autowired
     private SmsService smsService;

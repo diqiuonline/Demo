@@ -55,5 +55,11 @@ public class RestTemplateTest {
         String key = (String) result1.get("key");
         log.info(key);
     }
+    @Test
+    public void demo() {
+
+
+
+    }
 
 }
