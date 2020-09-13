@@ -5,6 +5,7 @@ import com.dhcc.shanjupay.transaction.api.dto.PayChannelDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +20,15 @@ public class payChannelTest {
     @Autowired
     private PayChannelService payChannelService;
 
+    @Value("${testf}")
+    private String test;
+
     @Test
     public void demo1() {
-        List<PayChannelDTO> shanju_c2b = payChannelService.queryPayChannelByPlatformChannel("shanju_c2b");
-        System.out.println(shanju_c2b.toString());
+
+        /*List<PayChannelDTO> shanju_c2b = payChannelService.queryPayChannelByPlatformChannel("shanju_c2b");
+        System.out.println(shanju_c2b.toString());*/
+        System.out.println(test);
     }
 
 }

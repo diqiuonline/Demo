@@ -87,7 +87,7 @@ public class StoreController {
 
         //获取二维码的URL
         String storeQRCodeURL = transactionService.createStoreQRCode(qrCodeDto);
-
+        System.out.println(storeQRCodeURL);
         //调用工具类生成二维码图片
         QRCodeUtil qrCodeUtil = new QRCodeUtil();
         //二维码图片base64编码
