@@ -62,20 +62,20 @@ public class MyBatisPlusGenerator {
         autoGenerator.setGlobalConfig(globalConfig);
 
         // 数据源配置 需配置
-		DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        DataSourceConfig dataSourceConfig = new DataSourceConfig();
 
-		// 商户服务
+        // 商户服务
 //		dataSourceConfig
 //				.setUrl("jdbc:mysql://218.29.75.103:6306/shanjupay_merchant_service serverTimezone=Asia/Shanghai");
 
-		// 交易服务
-		dataSourceConfig
-				.setUrl("jdbc:mysql://192.168.2.110:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
-		// dataSourceConfig.setSchemaName("public");
-		dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
-		dataSourceConfig.setUsername("root");
-		dataSourceConfig.setPassword("123456");
-		autoGenerator.setDataSource(dataSourceConfig);
+        // 交易服务
+        dataSourceConfig
+                .setUrl("jdbc:mysql://192.168.2.110:3306/shanjupay_merchant_service?serverTimezone=Asia/Shanghai");
+        // dataSourceConfig.setSchemaName("public");
+        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
+        dataSourceConfig.setUsername("root");
+        dataSourceConfig.setPassword("123456");
+        autoGenerator.setDataSource(dataSourceConfig);
 
         // 生成包配置
         PackageConfig packageConfig = new PackageConfig();

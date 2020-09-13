@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,15 +24,17 @@ import java.util.List;
 public class TestUserMapper2 {
     public static final Logger log = LoggerFactory.getLogger(TestUserMapper2.class);
     @Test
+    @Transactional
+    @Rollback(false)
     public void SelectById() throws Exception {
         User user = new User();
-        user.setId(3L);
+        user.setId(8L);
         User user1 = user.selectById();
         log.info(user1.toString());
     }
     @Test
     public void InsertTest() throws Exception {
-        User user = new User(null, "lijinzhuo", "1", "李锦卓", 35, "453@daf.com",1,0, SexEnum.WOMAN);
+        User user = new User(null, "lijinzhuo", "1", "李锦卓", 35, "453@daf.com");
         boolean insert = user.insert();
         log.info(user.toString()+"======"+insert);
     }
@@ -67,7 +71,7 @@ public class TestUserMapper2 {
         boolean b = user.update(null);
         log.info(user.toString()+"============="+b);
     }
-    @Test
+    /*@Test
     public void testLockUpdateVersion() {
         User user = new User();
         user.setId(3L);
@@ -75,7 +79,7 @@ public class TestUserMapper2 {
         user.setVersion(1); //当前的版本信息
         boolean b = user.updateById();
         log.info(user.toString()+"============="+b);
-    }
+    }*/
     @Test
     public void testSelectBySex() throws Exception {
         User user = new User();

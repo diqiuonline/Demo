@@ -14,3 +14,18 @@ spring:
       timeBetweenEvictionRunsMillis: 60000 #配置间隔检测连接是否有效的时间（单位是毫秒）
       minEvictableIdleTimeMillis: 300000  #连接在连接池的最小生存时间（毫秒）
 
+
+mybatis-plus:
+  global-config:
+    db-config:
+      # 如果删除状态 值为1
+      logic-delete-value: 1
+      # 未删除 0
+      logic-not-delete-value: 0
+http:
+  maxTotal: 40000
+  defaultMaxPerRoute: 40000
+  connectTimeout: 100
+  connectionRequestTimeout: 500
+  socketTimeout: 1000
+  staleConnectionCheckEnabled: true

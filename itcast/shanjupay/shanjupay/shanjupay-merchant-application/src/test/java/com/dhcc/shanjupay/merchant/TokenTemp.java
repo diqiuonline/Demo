@@ -2,14 +2,16 @@ package com.dhcc.shanjupay.merchant;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dhcc.shanjupay.merchat.api.MerchantService;
-import com.dhcc.shanjupay.merchat.api.dto.MerchantDTO;
-import com.shanjupay.common.util.EncryptUtil;
+import com.dhcc.shanjupay.merchant.api.MerchantService;
+import com.dhcc.shanjupay.merchant.api.dto.MerchantDTO;
+import com.dhcc.shanjupay.common.util.EncryptUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 /**
  * @author Administrator
@@ -34,5 +36,9 @@ public class TokenTemp {
 
         String jwt_token = "Bearer " + EncryptUtil.encodeBase64(JSON.toJSONString(token).getBytes());
         System.out.println(jwt_token);
+    }
+    @Test
+    public void demo2() {
+
     }
 }

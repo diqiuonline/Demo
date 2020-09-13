@@ -1,6 +1,6 @@
 package com.dhcc.shanjupay.merchant.service;
 
-import com.shanjupay.common.domain.BusinessException;
+import com.dhcc.shanjupay.common.domain.BusinessException;
 import org.springframework.stereotype.Service;
 
 /**

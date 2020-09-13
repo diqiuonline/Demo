@@ -1,0 +1,39 @@
+执行方法都在src\test\java\com\dhcc\copywork\copyQueryTest.java 文件里面
+有三个方法 
+1 gameToPlay  生成新的game记录并复制play表
+需要5个参数
+  //要复制的游戏id
+  int oldGameId = 28;
+  //新的游戏id
+  int newGameID = 234;
+  //几分钟一注
+  int fre = 144;
+  //游戏名字
+  String gameName = "三分快三";
+  //游戏类型
+  String gameType = "k3";
+  //游戏code
+  String gameCode = "lhc300";
+填写完毕后执行方法就会新增一条游戏记录并复制play表
+2 gameToPlayCat 复制playcat表
+需要三个参数
+  //要复制的游戏id
+  int oldGameId = 28;
+  //新的游戏id
+  int newGameID = 234;
+  //supercode 去除几位
+  int del = 3;
+ 填写完毕后执行方法就会复制playcat表
+3 gameToGameTime 生成gametime记录
+需要5个参数
+  //几分钟一注
+  int fre = 144;
+  //延迟几秒开始
+  int start = 1;
+  //提前几秒结束
+  int stop = 3;
+  //游戏主键
+  int  gameId = 1144;
+  //游戏code
+  String code = "lhc300";
+   填写完毕后执行方法就会生成gametime 记录
