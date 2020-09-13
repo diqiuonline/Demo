@@ -31,8 +31,3 @@ public class ConsumerSimpleObj implements RocketMQListener<MessageExt> {
         //System.out.println(s);
     }
 }
-
-
-class MessageListenerImpl implements MessageListener {
-
-}
