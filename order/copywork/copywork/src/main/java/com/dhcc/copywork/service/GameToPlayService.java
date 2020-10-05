@@ -39,7 +39,8 @@ public class GameToPlayService {
     private GameTimeTemplateMapper gameTimeTemplateMapper;
     @Autowired
     private GameConfigMapper gameConfigMapper;
-
+    @Autowired
+    private GameKillMapper gameKillMapper;
 
     public ResponseResult gameToPlay(int oldGameId, int newGameID, int fre, String gameName, String gameCode,  int start, int stop)  {
         //游戏期数
@@ -177,6 +178,34 @@ public class GameToPlayService {
                     gameToPlay(gameConfig.getTemplateGameId(), gameConfig.getId(), fre, gameConfig.getName(), gameConfig.getCode(),
                             gameConfig.getTimeStartDelay(), gameConfig.getTimeEndEarly());
                 }
+                Game game = gameMapper.selectOne(new LambdaQueryWrapper<Game>().eq(Game::getId, gameConfig.getId()));
+                game.setJsType(gameConfig.getJsType());
+                game.setOpen(0);
+                if (gameConfig.getJsType().equals(1)) {
+                    game.setRules("timeFormat");
+                }
+                gameMapper.updateById(game);
+            }
+            return new ResponseResult(CommonCode.SUCCESS, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            ExceptionCast.cast(CommonCode.FAIL,e.getCause().getMessage());
+            return null;
+        }
+    }
+    public ResponseResult copyGameToGameKill() {
+        try {
+            List<Game> games = gameMapper.selectList(null);
+            for (Game game : games) {
+                GameKill gameKill = new GameKill();
+                gameKill.setGameId(game.getId());
+                gameKill.setCode(game.getCode());
+                gameKill.setKillCount(2);
+                gameKill.setOpenCount(10);
+                gameKill.setRate(2);
+                gameKill.setAddTime(new Date());
+                gameKill.setUpdateTime(new Date());
+                gameKillMapper.insert(gameKill);
             }
             return new ResponseResult(CommonCode.SUCCESS, "操作成功");
         } catch (Exception e) {

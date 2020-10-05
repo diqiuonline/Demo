@@ -68,6 +68,10 @@ import java.io.Serializable;
             * 在游戏中心显示
             */
     private Integer isYxzx;
+    /**
+     *
+     */
+    private Integer jsType;
 
 
 }

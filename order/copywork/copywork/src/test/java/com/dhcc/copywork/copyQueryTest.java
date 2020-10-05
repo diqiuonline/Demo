@@ -5,12 +5,16 @@ import com.dhcc.copywork.entity.Game;
 import com.dhcc.copywork.entity.GameTime;
 import com.dhcc.copywork.entity.PlayCate;
 import com.dhcc.copywork.entity.Play;
+import com.dhcc.copywork.entity.response.ResponseResult;
 import com.dhcc.copywork.mapper.*;
+import com.dhcc.copywork.service.GameToPlayService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +32,12 @@ public class copyQueryTest {
     private PlayCateMapper playCateMapper;
     @Autowired
     private GameTimeMapper gameTimeMapper;
+    @Autowired
+    private GameKillMapper gameKillMapper;
+    @Autowired
+    private GameToPlayService gameToPlayService;
+    @Autowired
+    private UserBetMapper userBetMapper;
 
 
 
@@ -174,5 +184,23 @@ public class copyQueryTest {
     @Test
     public void copyTable() {
         gameMapper.copyGameAndPlayAndPlayCateAndGameTime(28);
+    }
+    @Test
+    public void copyGameKill() {
+        gameKillMapper.truncateGameKill();
+        ResponseResult responseResult = gameToPlayService.copyGameToGameKill();
+        System.out.println(responseResult);
+    }
+
+    @Test
+    public void addUserBetZeroToEnd() {
+        for (int i = 0; i <= 255; i++) {
+            try {
+                userBetMapper.addUserBetZeroToEnd("user_bet_" + i,"user_bill_" + i);
+            } catch (Exception e) {
+                //e.printStackTrace();
+                System.out.println("异常跳出" + e);
+            }
+        }
     }
 }

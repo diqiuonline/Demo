@@ -1,9 +1,9 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://mysql.dev:3306/gameplat_sc_data?useUnicode=true&characterEncoding=UTF-8&aautoReconnect=true&relaxAutoCommit=true&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://192.168.2.112:3306/gameplat_sc_data?useUnicode=true&characterEncoding=UTF-8&aautoReconnect=true&relaxAutoCommit=true&useSSL=false&allowMultiQueries=true
       username: root
-      password: _a51m2R45urE7e7u4e1AK45E
+      password: root
       driverClassName: com.mysql.jdbc.Driver
       #      driver-class-name: oracle.jdbc.OracleDriver
       #      url: jdbc:oracle:thin:@192.168.2.110:1521:xe
