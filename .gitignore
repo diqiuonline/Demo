@@ -2,7 +2,7 @@ target/
 *iml
 .idea/
 out/
-*log*
+logs/
 .git/
 .github
 .gitignore
