@@ -70,11 +70,11 @@ public class MyBatisPlusGenerator {
 
         // 交易服务
         dataSourceConfig
-                .setUrl("jdbc:mysql://mysql.dev:3306/gameplat_sc_data?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;relaxAutoCommit=true&amp;useSSL=false");
+                .setUrl("jdbc:mysql://192.168.2.112:3306/gameplat_sc_data?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;relaxAutoCommit=true&amp;useSSL=false");
         // dataSourceConfig.setSchemaName("public");
         dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("_a51m2R45urE7e7u4e1AK45E");
+        dataSourceConfig.setPassword("root");
         autoGenerator.setDataSource(dataSourceConfig);
 
         // 生成包配置

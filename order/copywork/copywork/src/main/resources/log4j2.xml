@@ -1,74 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    status="warn" 日志框架本身的输出日志级别
-    monitorInterval="5" 自动加载配置文件的间隔时间，不低于 5 秒
--->
-<Configuration status="info" monitorInterval="5">
+<configuration monitorInterval="5">
+    <Properties>
+        <property name="FILE_PATH">logs</property>
+        <property name="LOG_PATTERN">%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n</property>
+        <property name="FILE_NAME">WorkLog</property>
+    </Properties>
 
-    <!--
-        集中配置属性进行管理
-        使用时通过:${name}
-    -->
-    <properties>
-        <property name="LOG_HOME">logs</property>
-    </properties>
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <!--控制台只输出level及其以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
 
-    <!--日志处理-->
-    <Appenders>
-        <!--控制台输出 appender-->
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
-        </Console>
 
-        <!--日志文件输出 appender-->
-        <!-- <File name="file" fileName="${LOG_HOME}/myfile.log">
-             <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />
-         </File>-->
-<!--
-
-        <Async name="Async">
-            <AppenderRef ref="rollingFile"/>
-        </Async>
--->
-
-        <!--使用随机读写流的日志文件输出 appender，性能提高-->
-        <!--<RandomAccessFile name="accessFile" fileName="${LOG_HOME}/myAcclog.log">
-            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />
-        </RandomAccessFile>-->
-
-        <!--按照一定规则拆分的日志文件的 appender-->
-       <!-- <RollingFile name="rollingFile" fileName="${LOG_HOME}/myrollog.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/myrollog-%d{yyyy-MM-dd-HH-mm}-%i.log">
-            &lt;!&ndash;日志级别过滤器&ndash;&gt;
-            &lt;!&ndash;<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />&ndash;&gt;
-            &lt;!&ndash;日志消息格式&ndash;&gt;
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L -&#45;&#45; %m%n"/>
+        <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                &lt;!&ndash;在系统启动时，出发拆分规则，生产一个新的日志文件&ndash;&gt;
+                <!--在系统启动时，出发拆分规则，生产一个新的日志文件-->
                 <OnStartupTriggeringPolicy/>
-                &lt;!&ndash;按照文件大小拆分，10MB &ndash;&gt;
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-                &lt;!&ndash;按照时间节点拆分，规则根据filePattern定义的&ndash;&gt;
-               &lt;!&ndash; <TimeBasedTriggeringPolicy/>&ndash;&gt;
+                <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
-            &lt;!&ndash;在同一个目录下，文件的个数限定为 30 个，超过进行覆盖&ndash;&gt;
-            <DefaultRolloverStrategy max="30"/>
-        </RollingFile>-->
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="30000" />
 
-    </Appenders>
 
-    <!--logger 定义-->
+        </RollingFile>
+
+        <!-- 这个会打印出所有的warn及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileWarn" fileName="${FILE_PATH}/warn.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-WARN-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--在系统启动时，出发拆分规则，生产一个新的日志文件-->
+                <!--<OnStartupTriggeringPolicy/>-->
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="30000" />
+        </RollingFile>
+
+        <!-- 这个会打印出所有的error及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileError" fileName="${FILE_PATH}/error.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!--在系统启动时，出发拆分规则，生产一个新的日志文件-->
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <DefaultRolloverStrategy max="30000" />
+        </RollingFile>
+
+
+    </appenders>
+
+    <!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。-->
+    <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
+
     <Loggers>
-
-
-        <!--使用 rootLogger 配置 日志级别 level="trace"-->
-        <Root level="info">
+        <asyncRoot level="info" includeLocation="true">
             <!--指定日志使用的处理器-->
-            <AppenderRef ref="Console"/>
-            <!-- <AppenderRef ref="accessFile" />-->
-            <!-- <AppenderRef ref="rollingFile" />-->
-            <!--使用异步 appender-->
-           <!-- <AppenderRef ref="Async"/>-->
-        </Root>
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+        </asyncRoot>
     </Loggers>
-</Configuration>
+</configuration>
