@@ -10,3 +10,4 @@ study/RocketMQ_Study/rocketmq/data
 node_modules/
 RuoYi-Cloud/
 .gradle
+._*
