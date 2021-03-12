@@ -23,18 +23,16 @@
 
 
 
-    <!--    <import resource="spring.xml"/>-->
+    <!--test1-->
     <bean id="student"  class="com.enjoy.jack.bean.Student" />
 
-    <!--<bean class="com.enjoy.jack.bean.Student" id="student2" p:username="1234"/>-->
-
+    <!--test2-->
     <bean id="woman" class="com.enjoy.jack.bean.Woman"/>
-
     <bean id="people" class="com.enjoy.jack.bean.ShowSixClass">
         <lookup-method name="getPeople" bean="woman"></lookup-method>
     </bean>
 
-
+    <!--test3-->
     <bean id="repalceClass" class="com.enjoy.jack.bean.ReplaceClass"/>
     <bean id="originClass" class="com.enjoy.jack.bean.OriginClass">
         <replaced-method name="method" replacer="repalceClass">
@@ -44,31 +42,31 @@
 
 
 
-    <bean class="com.enjoy.jack.bean.ConstructorArgBean" id="constructorArgBean">
+<!--    <bean class="com.enjoy.jack.bean.ConstructorArgBean" id="constructorArgBean">
         <constructor-arg name="username" value="Jack" index="0" type="java.lang.String"/>
         <constructor-arg name="password" value="123" index="1" type="java.lang.String"/>
     </bean>
-
-
 
     <bean class="com.enjoy.jack.bean.PropertyBean" id="propertyBean">
         <property name="username" value="Jack"/>
         <property name="password" value="123"/>
     </bean>
 
-
     <bean class="com.enjoy.jack.bean.DecoratorBean" id="decoratorBean"
-          p:username="Jack" p:password="123" c:age="12" c:sex="1"/>
-<!--    <bean id="factoryMethodbean" class="com.enjoy.jack.bean.FactoryMethodBean"/>
-    <bean id="jack" factory-bean="factoryMethodbean" factory-method="factoryMethod"/>-->
+          p:username="Jack" p:password="123" c:age="12" c:sex="1"/>-->
 
-    <!--    <bean class="com.enjoy.jack.bean.Jack" id="sdfsaf">
-            <property name="cq" ref="CQ"/>
-        </bean>-->
+    <!--test4-->
+    <bean id="factoryMethodbean" class="com.enjoy.jack.bean.FactoryMethodBean"/>
+    <bean id="jack" factory-bean="factoryMethodbean" factory-method="factoryMethod"/>
 
 
-
-
+<!--
+    <bean id="propertiesBean" class="com.enjoy.jack.bean.propertiesbean.PropertiesBean">
+        &lt;!&ndash;占位符&ndash;&gt;
+        <property name="name" value="${enjoy.name}"/>
+        <property name="password" value="${enjoy.password}"/>
+        <aop:scoped-proxy/>
+    </bean>-->
 
 
 
