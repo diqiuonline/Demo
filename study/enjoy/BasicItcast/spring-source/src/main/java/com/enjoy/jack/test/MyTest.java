@@ -1,9 +1,15 @@
 package com.enjoy.jack.test;
 
 import com.enjoy.jack.bean.*;
+import com.enjoy.jack.beans.Teacher;
 import com.enjoy.jack.customBean.James13;
 import com.enjoy.jack.designPattern.strategy.CQ;
+import com.enjoy.jack.event.EnjoyApplicationListener;
+import com.enjoy.jack.event.EnjoyEvent;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -66,5 +72,27 @@ public class MyTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         James13 bean = applicationContext.getBean(James13.class);
         System.out.println(bean);
+    }
+
+
+    @Test
+    public void test8() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(TestBean.class);
+        Teacher teacher = applicationContext.getBean(Teacher.class);
+        System.out.println(teacher.getUsername());
+    }
+
+    @Test
+    public void test9() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        applicationContext.addApplicationListener(new EnjoyApplicationListener());
+        applicationContext.publishEvent(new EnjoyEvent("Jack", "enjoyEvent"));
+
+        applicationContext.start();
+        applicationContext.stop();
+
+       /* SimpleApplicationEventMulticaster bean = applicationContext.getBean(SimpleApplicationEventMulticaster.class);
+        bean.setTaskExecutor(null);*/
+
     }
 }
