@@ -23,7 +23,20 @@ public class Demo04StreamFunction {
     @Test
     public void testNumericStream() {
         // Integer占用的内存比int多,在Stream流操作中会自动装箱和拆箱
-        Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
+        //Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
+        List<Double> doubles = new ArrayList<>();
+        doubles.add(44.44);
+        doubles.add(44.44);
+        doubles.add(44.44);
+        doubles.add(44.44);
+        doubles.add(44.44);
+        IntStream u = doubles.stream().mapToInt(list -> {
+            System.out.println(list);
+            return 0;
+        });
+        System.out.println(u);
+
+
         // 把大于3的打印出来
         // stream.filter(n -> n > 3).forEach(System.out::println);
 
@@ -33,8 +46,8 @@ public class Demo04StreamFunction {
             return n.intValue();
         });*/
 
-        IntStream intStream = Stream.of(1, 2, 3, 4, 5).mapToInt(Integer::intValue);
-        intStream.filter(n -> n > 3).forEach(System.out::println);
+        /*IntStream intStream = Stream.of(1, 2, 3, 4, 5).mapToInt(Integer::intValue);
+        intStream.filter(n -> n > 3).forEach(System.out::println);*/
     }
 
     @Test

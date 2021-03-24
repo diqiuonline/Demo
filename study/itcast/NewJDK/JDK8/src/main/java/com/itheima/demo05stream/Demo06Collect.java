@@ -83,9 +83,12 @@ public class Demo06Collect {
                 new Student("柳岩", 52, 33));
 
         // Map<Integer, List<Student>> map = studentStream.collect(Collectors.groupingBy(Student::getAge));
-
+        studentStream.collect(s -> {
+            System.out.println(s);
+            return 123;
+        });
         // 将分数大于60的分为一组,小于60分成另一组
-        Map<String, List<Student>> map = studentStream.collect(Collectors.groupingBy((s) -> {
+        /*Map<String, List<Student>> map = studentStream.collect(Collectors.groupingBy((s) -> {
             if (s.getSocre() > 60) {
                 return "及格";
             } else {
@@ -95,7 +98,7 @@ public class Demo06Collect {
 
         map.forEach((k, v) -> {
             System.out.println(k + "::" + v);
-        });
+        });*/
     }
 
     // 其他收集流中数据的方式(相当于数据库中的聚合函数)

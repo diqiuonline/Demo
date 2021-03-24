@@ -1,10 +1,7 @@
 package com.dhcc.test;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,8 +17,10 @@ public class dhccAspect {
     }
 
 
-    @Before("pointCut()")
-    public void advice(JoinPoint pjp) {
-        System.out.println("aop --before--advice");
+    @AfterReturning(value = "pointCut()",returning="returnValue")
+    public void advice(JoinPoint pjp,Object returnValue) {
+        //pjp.getArgs()
+        //System.out.println("aop --before--advice");
+        //return pjp;
     }
 }
