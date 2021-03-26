@@ -1,6 +1,5 @@
 package com.dhcc.test;
 
-import com.dhcc.config.Appconfig;
 import com.dhcc.service.L;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -13,9 +12,11 @@ public class test {
     public static void main(String[] args) {
         //AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Appconfig.class);
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
-        ac.register(Appconfig.class);
-        ac.refresh();
+        //ac.register(Appconfig.class);
+        //ac.refresh();
         L l = (L) ac.getBean("c");
         l.query();
+        System.out.println(l.toString());
+
     }
 }

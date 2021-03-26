@@ -54,11 +54,11 @@ public class Demo01 {
         });*/
 
         // ifPresentOrElse: 存在做的什么,不存在做点什么
-        userNameO.ifPresentOrElse(s -> {
+        /*userNameO.ifPresentOrElse(s -> {
             System.out.println("有值: " + s);
         }, () -> {
             System.out.println("没有值");
-        });
+        });*/
     }
 
     @Test

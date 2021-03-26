@@ -12,6 +12,23 @@ import org.springframework.stereotype.Component;
 @Component("c")
 //@EnableAspectJAutoProxy(proxyTargetClass= true)
 public class CityService implements L {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public com.dhcc.test.dhccAspect getDhccAspect() {
+        return dhccAspect;
+    }
+
+    public void setDhccAspect(com.dhcc.test.dhccAspect dhccAspect) {
+        this.dhccAspect = dhccAspect;
+    }
 
     @Autowired
     private dhccAspect dhccAspect;
