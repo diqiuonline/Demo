@@ -16,9 +16,9 @@
 
     <!--自定义标签-->
     <!--自定义标签-->
-    <context:component-scan base-package="com.enjoy.jack">
+<!--    <context:component-scan base-package="com.enjoy.jack">
 
-    </context:component-scan>
+    </context:component-scan>-->
 
 
 
@@ -56,8 +56,8 @@
           p:username="Jack" p:password="123" c:age="12" c:sex="1"/>-->
 
     <!--test4-->
-    <bean id="factoryMethodbean" class="com.enjoy.jack.bean.FactoryMethodBean"/>
-    <bean id="jack" factory-bean="factoryMethodbean" factory-method="factoryMethod"/>
+  <!--  <bean id="factoryMethodbean" class="com.enjoy.jack.bean.FactoryMethodBean"/>
+    <bean id="jack" factory-bean="factoryMethodbean" factory-method="factoryMethod"/>-->
 
 
 <!--

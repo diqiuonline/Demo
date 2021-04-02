@@ -7,6 +7,7 @@ import com.enjoy.jack.designPattern.strategy.CQ;
 import com.enjoy.jack.event.EnjoyApplicationListener;
 import com.enjoy.jack.event.EnjoyEvent;
 import org.junit.Test;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
@@ -93,6 +94,17 @@ public class MyTest {
 
        /* SimpleApplicationEventMulticaster bean = applicationContext.getBean(SimpleApplicationEventMulticaster.class);
         bean.setTaskExecutor(null);*/
+
+    }
+
+    @Test
+    public void test10() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        //手动创建了实例并交给spring管理
+        applicationContext.getBeanFactory().registerSingleton("jack", new Jack());
+        ((DefaultListableBeanFactory)applicationContext.getBeanFactory()).destroySingleton("jack");
+        Jack bean = applicationContext.getBean(Jack.class);
+        System.out.println(bean.getName());
 
     }
 }

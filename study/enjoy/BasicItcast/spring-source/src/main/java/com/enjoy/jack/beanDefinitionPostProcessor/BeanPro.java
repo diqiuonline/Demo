@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * Date 2020/12/8 21:17
  * Version 1.0
  */
-@Component
+//@Component
 public class BeanPro implements BeanDefinitionRegistryPostProcessor {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
