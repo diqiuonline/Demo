@@ -101,7 +101,7 @@ public class MyTest {
     public void test10() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         //手动创建了实例并交给spring管理
-        applicationContext.getBeanFactory().registerSingleton("jack", new Jack());
+        //applicationContext.getBeanFactory().registerSingleton("jack", new Jack());
         ((DefaultListableBeanFactory)applicationContext.getBeanFactory()).destroySingleton("jack");
         Jack bean = applicationContext.getBean(Jack.class);
         System.out.println(bean.getName());

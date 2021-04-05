@@ -7,7 +7,5 @@ public class FactoryMethodBean {
         return new Jack();
     }
 
-    public Object factoryMethod(String param) {
-        return new Jack();
-    }
+
 }
