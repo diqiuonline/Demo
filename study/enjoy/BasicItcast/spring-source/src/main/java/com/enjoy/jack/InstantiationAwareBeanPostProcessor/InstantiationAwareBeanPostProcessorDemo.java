@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
  * Date 2020/12/22 20:27
  * Version 1.0
  */
-@PropertySource("classpath:application.properties")
-@Component
+/*@PropertySource("classpath:application.properties")
+@Component*/
 public class InstantiationAwareBeanPostProcessorDemo implements InstantiationAwareBeanPostProcessor {
 
     @Autowired
