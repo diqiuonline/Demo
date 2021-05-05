@@ -112,6 +112,7 @@ public class MyTest {
     public void test11() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         Jack bean = applicationContext.getBean(Jack.class);
+
         System.out.println(bean.getSc());
 
     }

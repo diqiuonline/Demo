@@ -5,4 +5,8 @@ public class Woman implements People{
     public void showsix() {
         System.out.println("i am man");
     }
+
+    public void init() {
+        System.out.println("==========Woman.init======");
+    }
 }

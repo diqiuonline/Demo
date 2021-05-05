@@ -5,6 +5,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
@@ -24,6 +26,8 @@ public class AwareBean implements BeanNameAware, BeanFactoryAware, ApplicationCo
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        DefaultListableBeanFactory beanFactory1 = (DefaultListableBeanFactory)beanFactory;
+        beanFactory1.setAllowCircularReferences(true);
         System.out.println(beanFactory);
     }
 

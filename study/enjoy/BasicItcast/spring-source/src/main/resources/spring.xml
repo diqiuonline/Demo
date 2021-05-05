@@ -27,7 +27,7 @@
     <bean id="student"  class="com.enjoy.jack.bean.Student" />
 
     <!--test2-->
-    <bean id="woman" class="com.enjoy.jack.bean.Woman"/>
+    <bean id="woman" class="com.enjoy.jack.bean.Woman" init-method="init"/>
     <bean id="people" class="com.enjoy.jack.bean.ShowSixClass">
         <lookup-method name="getPeople" bean="woman"></lookup-method>
     </bean>
