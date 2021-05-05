@@ -1,4 +1,3 @@
-/*
 package com.enjoy.jack.bean.circular;
 
 import lombok.Data;
@@ -14,4 +13,3 @@ public class CircularRefPrototypeA {
     @Autowired
     private CircularRefPrototypeB circularRefPrototypeB;
 }
-*/

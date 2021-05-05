@@ -1,4 +1,3 @@
-/*
 package com.enjoy.jack.bean.circular;
 
 import lombok.Data;
@@ -15,4 +14,3 @@ public class CircularRefConB {
         System.out.println("============CircularRefConB()===========");
     }
 }
-*/

@@ -1,6 +1,10 @@
 package com.enjoy.jack.test;
 
 import com.enjoy.jack.bean.*;
+import com.enjoy.jack.bean.circular.CircularRefConA;
+import com.enjoy.jack.bean.circular.CircularRefConB;
+import com.enjoy.jack.bean.circular.CircularRefPrototypeA;
+import com.enjoy.jack.bean.circular.CircularRefPrototypeB;
 import com.enjoy.jack.beans.Teacher;
 import com.enjoy.jack.customBean.James13;
 import com.enjoy.jack.designPattern.strategy.CQ;
@@ -114,6 +118,24 @@ public class MyTest {
         Jack bean = applicationContext.getBean(Jack.class);
 
         System.out.println(bean.getSc());
+
+    }
+
+    @Test
+    public void test12() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        CircularRefConA bean = applicationContext.getBean(CircularRefConA.class);
+        CircularRefConB bean3 = applicationContext.getBean(CircularRefConB.class);
+        System.out.println(bean.toString());
+
+    }
+
+    @Test
+    public void test13() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        CircularRefPrototypeA bean = applicationContext.getBean(CircularRefPrototypeA.class);
+        CircularRefPrototypeB bean3 = applicationContext.getBean(CircularRefPrototypeB.class);
+        System.out.println(bean.toString());
 
     }
 }
