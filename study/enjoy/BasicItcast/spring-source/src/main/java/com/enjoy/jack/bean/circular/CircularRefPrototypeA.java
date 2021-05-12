@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CircularRefPrototypeA {
-    @Autowired
-    private CircularRefPrototypeB circularRefPrototypeB;
+   /* @Autowired
+    private CircularRefPrototypeB circularRefPrototypeB;*/
 }

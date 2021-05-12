@@ -19,7 +19,7 @@
     <context:component-scan base-package="com.enjoy.jack">
 
     </context:component-scan>
-
+    <context:property-placeholder location="classpath:application.properties"/>
 
 
 
@@ -60,14 +60,11 @@
     <bean id="jack" class="com.enjoy.jack.bean.Jack" factory-method="factoryMethod"/>
 
 
-<!--
     <bean id="propertiesBean" class="com.enjoy.jack.bean.propertiesbean.PropertiesBean">
-        &lt;!&ndash;占位符&ndash;&gt;
+        <!--占位符-->
         <property name="name" value="${enjoy.name}"/>
         <property name="password" value="${enjoy.password}"/>
-        <aop:scoped-proxy/>
     </bean>
--->
 
 
 

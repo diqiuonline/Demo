@@ -5,6 +5,8 @@ import com.enjoy.jack.bean.circular.CircularRefConA;
 import com.enjoy.jack.bean.circular.CircularRefConB;
 import com.enjoy.jack.bean.circular.CircularRefPrototypeA;
 import com.enjoy.jack.bean.circular.CircularRefPrototypeB;
+import com.enjoy.jack.bean.propertiesbean.PropertiesBean;
+import com.enjoy.jack.beanDefinitionPostProcessor.PlaceHolderBean1;
 import com.enjoy.jack.beans.Teacher;
 import com.enjoy.jack.customBean.James13;
 import com.enjoy.jack.designPattern.strategy.CQ;
@@ -16,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.env.Environment;
 
 /**
  * @Classname MyTest
@@ -136,6 +139,38 @@ public class MyTest {
         CircularRefPrototypeA bean = applicationContext.getBean(CircularRefPrototypeA.class);
         CircularRefPrototypeB bean3 = applicationContext.getBean(CircularRefPrototypeB.class);
         System.out.println(bean.toString());
+
+    }
+
+    @Test
+    public void test14() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        applicationContext.getBeanFactory().destroyBean("jack");
+        applicationContext.getBeanFactory().destroySingletons();
+        //System.out.println(bean.toString());
+
+    }
+    @Test
+    public void test15() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        PropertiesBean bean = applicationContext.getBean(PropertiesBean.class);
+        System.out.println(bean.getName());
+        System.out.println(bean.getPassword());
+
+    }
+
+    @Test
+    public void test16() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        Environment bean = applicationContext.getBean(Environment.class);
+        System.out.println(bean);
+
+    }
+
+    @Test
+    public void test17() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        System.out.println(applicationContext.getBean(PlaceHolderBean1.class));
 
     }
 }
