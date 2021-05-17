@@ -24,7 +24,7 @@
 
 
     <!--test1-->
-    <bean id="student"  class="com.enjoy.jack.bean.Student" />
+    <!--<bean id="student"  class="com.enjoy.jack.bean.Student" />-->
 
     <!--test2-->
     <bean id="woman" class="com.enjoy.jack.bean.Woman" init-method="init"/>

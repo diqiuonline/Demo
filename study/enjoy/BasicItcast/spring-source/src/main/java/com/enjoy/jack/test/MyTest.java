@@ -5,6 +5,7 @@ import com.enjoy.jack.bean.circular.CircularRefConA;
 import com.enjoy.jack.bean.circular.CircularRefConB;
 import com.enjoy.jack.bean.circular.CircularRefPrototypeA;
 import com.enjoy.jack.bean.circular.CircularRefPrototypeB;
+import com.enjoy.jack.bean.factoryBean.FactoryBeanDemo;
 import com.enjoy.jack.bean.propertiesbean.PropertiesBean;
 import com.enjoy.jack.beanDefinitionPostProcessor.PlaceHolderBean1;
 import com.enjoy.jack.beans.Teacher;
@@ -172,5 +173,19 @@ public class MyTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         System.out.println(applicationContext.getBean(PlaceHolderBean1.class));
 
+    }
+    @Test
+    public void test18() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        Student student = (Student)applicationContext.getBean("factoryBeanDemo");
+        System.out.println(student);
+
+        FactoryBeanDemo factoryBeanDemo = (FactoryBeanDemo)applicationContext.getBean("&factoryBeanDemo");
+        System.out.println(factoryBeanDemo);
+    }
+    @Test
+    public void test19() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        Student bean = applicationContext.getBean(Student.class);
     }
 }

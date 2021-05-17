@@ -14,13 +14,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Component;
 
-/**
- * @Classname BeanPro
- * @Description TODO
- * @Author Jack
- * Date 2020/12/8 21:17
- * Version 1.0
- */
+
 //@Component
 public class BeanPro implements BeanDefinitionRegistryPostProcessor {
     @Override
