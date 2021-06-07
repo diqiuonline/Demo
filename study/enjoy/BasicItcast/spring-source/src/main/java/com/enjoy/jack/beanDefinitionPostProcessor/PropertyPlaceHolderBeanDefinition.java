@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 
-//@Component
+@Component
 public class PropertyPlaceHolderBeanDefinition implements BeanDefinitionRegistryPostProcessor {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {

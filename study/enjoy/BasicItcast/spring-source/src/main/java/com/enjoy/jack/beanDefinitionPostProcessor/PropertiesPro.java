@@ -16,34 +16,30 @@ import org.springframework.stereotype.Component;
 import java.util.Properties;
 
 
-@Component
-public class PropertiesPro implements BeanDefinitionRegistryPostProcessor, PriorityOrdered, Ordered, EnvironmentAware {
+//@Component
+public class PropertiesPro implements BeanDefinitionRegistryPostProcessor,EnvironmentAware {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
     }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        StandardEnvironment bean = (StandardEnvironment)beanFactory.getBean(Environment.class);
-        Properties properties = new Properties();
-        properties.put("enjoy.name","James");
-        PropertiesPropertySource propertiesCustom = new PropertiesPropertySource("propertiesCustom", properties);
-        MutablePropertySources propertySources = bean.getPropertySources();
-        propertySources.addLast(propertiesCustom);
-    }
-
-    @Override
-    public int getOrder() {
-        return 0;
-    }
-
-    @Override
-    public void setEnvironment(Environment environment) {
-       /* StandardEnvironment bean = (StandardEnvironment)environment;
+       /* StandardEnvironment bean = (StandardEnvironment)beanFactory.getBean(Environment.class);
         Properties properties = new Properties();
         properties.put("enjoy.name","James");
         PropertiesPropertySource propertiesCustom = new PropertiesPropertySource("propertiesCustom", properties);
         MutablePropertySources propertySources = bean.getPropertySources();
         propertySources.addLast(propertiesCustom);*/
+    }
+
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        StandardEnvironment bean = (StandardEnvironment)environment;
+        Properties properties = new Properties();
+        properties.put("enjoy.name","James");
+        PropertiesPropertySource propertiesCustom = new PropertiesPropertySource("propertiesCustom", properties);
+        MutablePropertySources propertySources = bean.getPropertySources();
+        propertySources.addLast(propertiesCustom);
     }
 }

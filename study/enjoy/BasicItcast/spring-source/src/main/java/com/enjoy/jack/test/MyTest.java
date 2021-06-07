@@ -13,6 +13,7 @@ import com.enjoy.jack.customBean.James13;
 import com.enjoy.jack.designPattern.strategy.CQ;
 import com.enjoy.jack.event.EnjoyApplicationListener;
 import com.enjoy.jack.event.EnjoyEvent;
+import com.enjoy.jack.scope.CustomScopeBean;
 import org.junit.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -187,5 +188,11 @@ public class MyTest {
     public void test19() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         Student bean = applicationContext.getBean(Student.class);
+    }
+    @Test
+    public void test20() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        CustomScopeBean bean = applicationContext.getBean(CustomScopeBean.class);
+        System.out.println(bean);
     }
 }
