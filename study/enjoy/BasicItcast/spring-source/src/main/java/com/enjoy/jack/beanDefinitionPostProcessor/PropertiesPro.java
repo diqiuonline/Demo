@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Properties;
 
 
-//@Component
+@Component
 public class PropertiesPro implements BeanDefinitionRegistryPostProcessor,EnvironmentAware {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
