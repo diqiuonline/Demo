@@ -1,11 +1,13 @@
 package com.roncoo.eshop.inventory;
 
+import com.roncoo.eshop.inventory.listener.InitListener;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -55,14 +57,28 @@ public class Application {
 
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
         jedisClusterNodes.add(new HostAndPort("192.168.2.205", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.208", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.206", 7000));
         jedisClusterNodes.add(new HostAndPort("192.168.2.205", 7001));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.206", 7000));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.206", 7001));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.207", 7000));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.207", 7001));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.208", 7000));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.208", 7001));
+
+
         JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes,10000, 10000, 100, "redis-pass",config);
         //jedisCluster.auth("redis-pass");
         return jedisCluster;
     }
 
+
+
+    @Bean
+    public ServletListenerRegistrationBean servletListenerRegistrationBean() {
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new InitListener());
+        return servletListenerRegistrationBean;
+    }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
