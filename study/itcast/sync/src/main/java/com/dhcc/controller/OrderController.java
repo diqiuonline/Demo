@@ -25,8 +25,8 @@ public class OrderController {
         synchronizedByKey.exec(orderId,()->{
             logger.info("[{}] 开始", orderId);
             try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
+                //Thread.sleep(1500);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             logger.info("[{}] 结束", orderId);
