@@ -19,7 +19,7 @@
     <!-- 初始化框架的版本号 -->
     <properties>
         <spring.version>4.3.4.RELEASE</spring.version>
-        <jackson.version>2.5.4</jackson.version>
+        <jackson.version>2.9.10.8</jackson.version>
     </properties>
     <dependencies>
 
