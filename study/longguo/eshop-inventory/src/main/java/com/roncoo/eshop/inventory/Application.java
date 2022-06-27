@@ -53,26 +53,28 @@ public class Application {
         config .setMaxWaitMillis(10000);
         config .setTestOnBorrow(true);
         config .setTestOnReturn(true);
+        //config.set
 
 
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 7001));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.206", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.206", 7001));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.207", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.207", 7001));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.208", 7000));
-        jedisClusterNodes.add(new HostAndPort("192.168.2.208", 7001));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6379));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6380));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6381));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6382));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6383));
+        jedisClusterNodes.add(new HostAndPort("192.168.2.205", 6384));
 
 
-        JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes,10000, 10000, 100, "redis-pass",config);
+        JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes,10000, 10000, 100, "ZL%pt&20",config);
         //jedisCluster.auth("redis-pass");
         return jedisCluster;
     }
 
 
-
+    /**
+     * 注册监听器
+     * @return
+     */
     @Bean
     public ServletListenerRegistrationBean servletListenerRegistrationBean() {
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
