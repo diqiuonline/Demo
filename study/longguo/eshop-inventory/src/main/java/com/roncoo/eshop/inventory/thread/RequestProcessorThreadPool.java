@@ -52,7 +52,7 @@ public class RequestProcessorThreadPool {
      * @return
      */
     public static RequestProcessorThreadPool getInstance() {
-        return RequestProcessorThreadPool.Singleton.getInstance();
+        return Singleton.getInstance();
     }
     /**
      * 初始化的 便捷方法
