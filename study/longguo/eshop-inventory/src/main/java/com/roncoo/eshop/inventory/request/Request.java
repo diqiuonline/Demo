@@ -7,4 +7,5 @@ import com.roncoo.eshop.inventory.model.ProductInventory;
  */
 public interface Request {
     void process( );
+    Integer getProductId();
 }
