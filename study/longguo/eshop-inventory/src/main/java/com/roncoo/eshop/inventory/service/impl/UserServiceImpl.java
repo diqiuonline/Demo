@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCacheUserInfo() {
-        //redisDao.set("cache_user_lisi","{\"name\":\"lisi\",\"age\":28}");
+        redisDao.set("cache_user_lisi","{\"name\":\"lisi\",\"age\":28}");
         String cache_user_list = redisDao.get("cache_user_lisi");
         User user = JSONObject.parseObject(cache_user_list, User.class);
         return user;
