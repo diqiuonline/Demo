@@ -66,7 +66,6 @@ public class Application {
 
 
         JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes,10000, 10000, 100, "ZL%pt&20",config);
-        //jedisCluster.auth("redis-pass");
         return jedisCluster;
     }
 

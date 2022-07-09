@@ -1,14 +1,10 @@
 package com.roncoo.eshop.inventory.service.impl;
 
-import com.roncoo.eshop.inventory.request.ProductInventoryCacheRefreshRequest;
-import com.roncoo.eshop.inventory.request.ProductInventoryDBUpdateRequest;
 import com.roncoo.eshop.inventory.request.Request;
 import com.roncoo.eshop.inventory.request.RequsetQueue;
 import com.roncoo.eshop.inventory.service.RequestAsyncProcessService;
-import com.sun.javafx.css.StyleCacheEntry;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -22,27 +18,12 @@ public class RequestAsynvProcessServiceImpl implements RequestAsyncProcessServic
     @Override
     public void process(Request request) {
         try {
-            //先做读请求的去重
-            RequsetQueue requsetQueue = RequsetQueue.getInstance();
-            Map<Integer, Boolean> flagMap = requsetQueue.getFlagMap();
-            if (request instanceof ProductInventoryDBUpdateRequest) {
-                //如果是一个更新数据库的请求那么就将那个productId对应的标识设置为ture
-                flagMap.put(request.getProductId(), true);
-            } else if (request instanceof ProductInventoryCacheRefreshRequest) {
-                //如果是缓存刷新的请求，那么就判断 如果标识不为空，而且是true 就说明之前有一个商品的数据库更新请求
-                if (flagMap.get(request.getProductId()) != null && flagMap.get(request.getProductId())) {
-                    flagMap.put(request.getProductId(),false);
-                }
-                //如果是缓存刷新的请求 而且发现标识不为空，而且标识是false 说明前面已经有一个数据库更新请求+缓存刷新请求
-                if (flagMap.get(request.getProductId()) != null && !flagMap.get(request.getProductId())) {
-                    //对于这种读请求，直接就过滤掉 不要放到后面的内存队列中去
-                    return;
-                }
-            }
+
             //做请求的路由 根据每个请求的商品id，路由到对应的内存队列中去
             ArrayBlockingQueue<Request> queue = getRoutingQueue(request.getProductId());
             //将请求放入到对饮的队列中 完成路由操作
             queue.put(request);
+            System.out.println("=======日志========："+Thread.currentThread().getName()+": 请求添加到队列成功 请求"+request.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -64,6 +45,7 @@ public class RequestAsynvProcessServiceImpl implements RequestAsyncProcessServic
         //用内存队列的数量对hash值取模之后 结果一定是0~7之间
         //所以任何一个商品id 都会别固定路由到同样的一个内存队列中去的
         int index = (requsetQueue.queueSize() - 1) & hash;
+        System.out.println("=======日志========："+Thread.currentThread().getName()+":路由内存队列，商品id=" + productId+", 队列索引="+index);
         return requsetQueue.getQueue(index);
     }
 }
