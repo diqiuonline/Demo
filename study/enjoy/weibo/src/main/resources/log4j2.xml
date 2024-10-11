@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="5">
+    <Properties>
+        <property name="FILE_PATH">logs</property>
+        <property name="LOG_PATTERN">%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n</property>
+        <property name="FILE_NAME">fqdLog</property>
+    </Properties>
+
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <!--控制台只输出level及其以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
+
+        <!-- 这个会打印出所有的debug及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <!--<RollingFile name="RollingFileDebug" fileName="${FILE_PATH}/debug.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-debug-%d{yyyy-MM-dd}_%i.log.gz">
+            &lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;
+            <Filters>
+                <ThresholdFilter level="DEBUG" />
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            &lt;!&ndash; DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖&ndash;&gt;
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" /> &lt;!&ndash; 归档每天的文件 &ndash;&gt;
+                <SizeBasedTriggeringPolicy size="2 MB" /> &lt;!&ndash; 限制单个文件大小 &ndash;&gt;
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>  &lt;!&ndash; 限制每天文件个数 &ndash;&gt;
+        </RollingFile>-->
+
+
+        <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="INFO" />
+            </Filters>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" /> <!-- 归档每天的文件 -->
+                <SizeBasedTriggeringPolicy size="2 MB" /> <!-- 限制单个文件大小 -->
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="0" max="100"/>  <!-- 限制每天文件个数 -->
+        </RollingFile>
+
+
+        <!-- 这个会打印出所有的warn及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileWarn" fileName="${FILE_PATH}/warn.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-WARN-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="WARN" />
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="2 MB" />
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="0" max="100"/>
+        </RollingFile>
+
+
+        <!-- 这个会打印出所有的error及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFileError" fileName="${FILE_PATH}/error.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="ERROR" />
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="2 MB" />
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="0" max="100"/>
+        </RollingFile>
+
+    </appenders>
+
+    <!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。-->
+    <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
+
+    <Loggers>
+        <asyncRoot level="debug" includeLocation="true">
+            <!--指定日志使用的处理器-->
+            <appender-ref ref="Console"/>
+            <!--<appender-ref ref="RollingFileDebug"/>-->
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+        </asyncRoot>
+    </Loggers>
+</configuration>
