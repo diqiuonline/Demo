@@ -1,5 +1,6 @@
 """配置加载器 - 从 config.yaml 加载默认配置"""
 
+import json
 import os
 from pathlib import Path
 from typing import Any
@@ -33,18 +34,29 @@ def load_config() -> dict[str, Any]:
 def get_cookie(config: dict[str, Any], cookie_cli: str | None = None) -> str:
     """
     获取 Cookie 字符串。
-    优先级: CLI 参数 > config.yaml > 环境变量
+    优先级: CLI 参数 > config.yaml 顶层 cookie > 环境变量
+
+    支持多种格式:
+    - 纯 cookie 字符串: "SESSDATA=xxx; buvid3=xxx"
+    - JSON 格式: {"SESSDATA": "xxx"} 或 {"buvid3": "xxx", "SESSDATA": "xxx"}
     """
-    if cookie_cli:
-        return cookie_cli
-    env_cookie = os.environ.get("BILIBILI_COOKIE")
-    if env_cookie:
-        return env_cookie
-    bilibili_cfg = config.get("bilibili", {})
-    cookie = bilibili_cfg.get("cookie", "")
-    if not cookie:
+    raw = cookie_cli or config.get("cookie", "") or os.environ.get("BILIBILI_COOKIE", "")
+
+    if not raw:
         raise ValueError(
-            "未提供 Cookie。请在 config.yaml 中设置，或通过 --cookie 参数传入，"
-            "或设置环境变量 BILIBILI_COOKIE"
+            "未提供 Cookie。请在 config.yaml 顶层设置 cookie，"
+            "或通过 --cookie 参数传入，或设置环境变量 BILIBILI_COOKIE"
         )
-    return cookie
+
+    # 尝试 JSON 格式
+    if raw.startswith("{"):
+        try:
+            cookie_data = json.loads(raw)
+            for k, v in cookie_data.items():
+                if "sessdata" in k.lower():
+                    return v
+        except json.JSONDecodeError:
+            pass
+
+    # 纯 cookie 字符串
+    return raw

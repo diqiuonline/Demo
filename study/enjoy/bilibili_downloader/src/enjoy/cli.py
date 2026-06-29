@@ -9,7 +9,7 @@ from pathlib import Path
 
 import aiohttp
 
-from enjoy.config_loader import load_config
+from enjoy.config_loader import load_config, get_cookie
 from enjoy.downloader.extractor import parse_links_file
 from enjoy.downloader.fetcher import find_ffmpeg
 from enjoy.downloader.image_downloader import download_image, extract_image_id
@@ -35,38 +35,10 @@ def cmd_export(args, config: dict) -> None:
 
     bilibili_cfg = config.get("bilibili", {})
     mid = args.mid or bilibili_cfg.get("mid", "2073801516")
-    output_file = args.output or bilibili_cfg.get("output_file", "动态汇总报告.txt")
-    cookie_raw = args.cookie or bilibili_cfg.get("cookie", "")
+    output_dir = args.output or bilibili_cfg.get("output_dir", "./output")
+    cookie_raw = args.cookie
 
-    if not cookie_raw:
-        print("ERROR: 需要提供 Cookie。请使用 --cookie 参数或在 config.yaml 中配置。")
-        sys.exit(1)
-
-    # 提取 SESSDATA
-    sessdata = ""
-    if cookie_raw.startswith("{"):
-        try:
-            cookie_data = json.loads(cookie_raw)
-            for k, v in cookie_data.items():
-                if "sessdata" in k.lower():
-                    sessdata = v
-                    break
-        except json.JSONDecodeError:
-            pass
-    if not sessdata:
-        for part in cookie_raw.split(";"):
-            part = part.strip()
-            if "=" in part:
-                k, v = part.split("=", 1)
-                if k.strip().lower() == "sessdata":
-                    sessdata = v.strip()
-                    break
-
-    if not sessdata:
-        print("ERROR: 没有找到 SESSDATA")
-        sys.exit(1)
-
-    cookie_str = f"SESSDATA={sessdata}"
+    cookie_str = get_cookie(config, cookie_raw)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
         "Cookie": cookie_str,
@@ -105,7 +77,13 @@ def cmd_export(args, config: dict) -> None:
             print(f"❌ 被B站网关拦截，提示语：{data.get('message')}")
             break
 
+        # 从第一页响应中取 UP 主名字
+        up_name = mid
         items = (data.get("data") or {}).get("items", [])
+        if items:
+            first_item = items[0]
+            mod_author = (first_item.get("modules") or {}).get("module_author") or {}
+            up_name = mod_author.get("name", mid)
         for raw in items:
             info = parse_item(raw)
             all_items.append(info)
@@ -119,49 +97,48 @@ def cmd_export(args, config: dict) -> None:
         page += 1
         time.sleep(1.3)
 
-    generate_report(all_items, output_file)
-    print(f"\n\U0001f389 完美收工！汇总报告已生成至当前文件夹：{output_file}")
+    output_path = Path(output_dir) / f"{up_name}_全量动态汇总报告.txt"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    generate_report(all_items, str(output_path))
+    print(f"\n\U0001f389 完美收工！汇总报告已生成至：{output_path}")
 
 
 def cmd_download(args, config: dict) -> None:
     """下载视频和图片 - 增强版，支持从 links.txt 结构化报告下载。"""
     download_cfg = config.get("download", {})
 
-    links_file = args.links
-    cookie_file = args.cookie
+    # 优先级: CLI 参数 > config.yaml > 默认值
+    links_file = args.links or download_cfg.get("links_file", "links.txt")
     output_dir = args.output or download_cfg.get("output_dir", "./downloads")
     ffmpeg_path = args.ffmpeg or download_cfg.get("ffmpeg", "")
     concurrency = args.concurrency or download_cfg.get("concurrency", 16)
+    video_quality = download_cfg.get("video_quality", 127)
+    audio_quality = download_cfg.get("audio_quality", 30251)
 
-    # 加载 cookie
-    with open(cookie_file, "r", encoding="utf-8") as f:
-        raw = f.read().strip()
-
-    sessdata = ""
-    if raw.startswith("{"):
+    # 统一获取 cookie 字符串
+    cookie_raw = args.cookie
+    cookie_str = get_cookie(config, cookie_raw)
+    # 打印 SESSDATA 脱敏信息
+    sessdata_val = ""
+    if cookie_str.startswith("{"):
         try:
-            cookie_data = json.loads(raw)
-            for k, v in cookie_data.items():
+            cd = json.loads(cookie_str)
+            for k, v in cd.items():
                 if "sessdata" in k.lower():
-                    sessdata = v
+                    sessdata_val = v
                     break
         except json.JSONDecodeError:
             pass
-    if not sessdata:
-        for part in raw.split(";"):
+    if not sessdata_val:
+        for part in cookie_str.split(";"):
             part = part.strip()
             if "=" in part:
                 k, v = part.split("=", 1)
                 if k.strip().lower() == "sessdata":
-                    sessdata = v.strip()
+                    sessdata_val = v.strip()
                     break
-
-    if not sessdata:
-        print("ERROR: cookie.json 中没有找到 SESSDATA")
-        sys.exit(1)
-
-    cookie_str = f"SESSDATA={sessdata}"
-    print(f"Cookie 已加载 (SESSDATA: {sessdata[:10]}...{sessdata[-10:]})")
+    if sessdata_val:
+        print(f"Cookie 已加载 (SESSDATA: {sessdata_val[:10]}...{sessdata_val[-10:]})")
 
     # 查找 ffmpeg
     ffmpeg_bin = find_ffmpeg(ffmpeg_path)
@@ -182,6 +159,18 @@ def cmd_download(args, config: dict) -> None:
     image_count = sum(1 for e in link_entries if not e["bvid"])
     print(f"  视频: {video_count} 个, 图文: {image_count} 个")
 
+    # 从 links 文件名提取 UP 主名
+    # 格式: UP主名_全量动态汇总报告.txt
+    up_name = "未知UP主"
+    links_filename = Path(links_file).stem
+    if "_全量动态汇总报告" in links_filename:
+        up_name = links_filename.rsplit("_全量动态汇总报告", 1)[0]
+    print(f"UP主: {up_name}")
+
+    # 创建 UP 主根目录
+    up_root_dir = Path(output_dir) / filename_filter(up_name)
+    up_root_dir.mkdir(parents=True, exist_ok=True)
+
     async def _run():
         async with aiohttp.ClientSession() as session:
             for i, entry in enumerate(link_entries, 1):
@@ -193,9 +182,9 @@ def cmd_download(args, config: dict) -> None:
                 image_urls = entry.get("image_urls", [])
                 opus_id = entry.get("opus_id", "")
 
-                # 确定子目录
+                # 确定子目录: UP主名/分类名
                 sub_dir_name = CATEGORY_DIR.get(category, "其他")
-                target_dir = Path(output_dir) / sub_dir_name
+                target_dir = up_root_dir / sub_dir_name
                 target_dir.mkdir(parents=True, exist_ok=True)
 
                 print(f"\n[{i}/{len(link_entries)}] 处理: {raw_url}")
@@ -226,6 +215,9 @@ def cmd_download(args, config: dict) -> None:
                             concurrency=concurrency,
                             custom_date=custom_date,
                             custom_title=custom_title,
+                            video_quality=video_quality,
+                            audio_quality=audio_quality,
+                            create_up_subdir=False,
                         )
 
                     elif image_urls:
@@ -282,8 +274,8 @@ def main() -> None:
 
     # download 子命令
     dl_parser = subparsers.add_parser("download", help="下载 B站视频和图片")
-    dl_parser.add_argument("--links", required=True, help="链接文件路径 (支持纯 URL 或结构化格式)")
-    dl_parser.add_argument("--cookie", required=True, help="cookie.json 文件路径")
+    dl_parser.add_argument("--links", default=None, help="链接文件路径 (默认: config.yaml)")
+    dl_parser.add_argument("--cookie", default=None, help="Cookie 字符串 (默认: config.yaml 顶层 cookie)")
     dl_parser.add_argument("-o", "--output", default=None, help="下载目录 (默认: config.yaml)")
     dl_parser.add_argument("--ffmpeg", default=None, help="ffmpeg 可执行文件路径 (默认: 自动检测)")
     dl_parser.add_argument("--concurrency", type=int, default=None, help="分片并发数 (默认: 16)")
@@ -296,7 +288,16 @@ def main() -> None:
         sys.exit(1)
 
     config = load_config()
-    setup_logging(verbose=getattr(args, 'verbose', False))
+
+    # 日志配置
+    log_cfg = config.get("log", {})
+    log_dir = log_cfg.get("log_dir", "")
+    log_level = log_cfg.get("log_level", "")
+    setup_logging(
+        verbose=getattr(args, 'verbose', False),
+        log_dir=log_dir,
+        log_level=log_level,
+    )
 
     if args.command == "export":
         cmd_export(args, config)

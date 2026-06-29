@@ -8,8 +8,6 @@ import org.apache.commons.imaging.common.ImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
 import org.apache.commons.imaging.formats.tiff.TiffField;
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,9 +32,9 @@ import java.util.stream.Stream;
 public class FileNameReplacer {
 
     public static void main(String[] args) {
-        String directoryPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\小蓝蓝\\bili"; // 替换为实际的目录路径
-        String oldname = "小蓝蓝plus";
-        String newname = "小蓝蓝";
+        String directoryPath = "G:\\nihaoa\\下载\\kuaidou\\Vivienne_漪个亿"; // 替换为实际的目录路径
+        String oldname = "Vivienne_漪个亿_顾十美\uD83C\uDF6E";
+        String newname = "Vivienne_漪个亿";
         File directory = new File(directoryPath);
 
         // 检查目录是否存在
@@ -582,13 +580,12 @@ class MoveSubfolders {
  */
 class Person{
 
-    public static final Logger logger = LoggerFactory.getLogger(Person.class);
     public static void main(String[] args) throws Exception {
             LoadNativeCore.LOAD_NATIVE(SeetaDevice.SEETA_DEVICE_AUTO);
             FaceDetector detector = new FaceDetector(new SeetaModelSetting(new String[]{"D:\\Program Files\\SD\\sf3.0_models\\face_detector.csta"}, SeetaDevice.SEETA_DEVICE_AUTO));
 
-            String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\rioko凉凉子\\肉扣热热子\\img\\转发微博图片"; // 替换为实际文件夹路径
-            String target = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\rioko凉凉子\\新建文件夹";
+            String folderPath = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\未归档\\晴崽"; // 替换为实际文件夹路径
+            String target = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\未归档\\新建文件夹";
             File folder = new File(folderPath);
 
             if (folder.isDirectory()) {

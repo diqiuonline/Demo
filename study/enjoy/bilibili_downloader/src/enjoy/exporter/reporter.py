@@ -80,6 +80,8 @@ def generate_report(
         lines.append("")
 
     # --- 五、汇总 ---
+    normal_pics = sum(len(i.pics) for i in normal_draws)
+    charged_pics = sum(len(i.pics) for i in charged_draws)
     lines.extend([
         "=" * 77,
         "五、 统计汇总",
@@ -88,7 +90,9 @@ def generate_report(
         f"普通视频动态: {len(normal_videos)} 个",
         f"充电视频动态: {len(charged_videos)} 个",
         f"普通图文动态: {len(normal_draws)} 个",
+        f"普通图片: {normal_pics} 张",
         f"充电图文动态: {len(charged_draws)} 个",
+        f"充电图片: {charged_pics} 张",
         f"图片总数: {total_pics} 张",
     ])
 

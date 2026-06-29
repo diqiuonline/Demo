@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enjoy"
+version = "0.1.0"
+description = "Bilibili 工具集 - 动态导出 + 视频/图片下载"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.31",
+    "aiohttp>=3.9",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+enjoy = "enjoy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

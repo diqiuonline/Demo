@@ -1,4 +1,4 @@
-package com.dhcc.tmp;
+package com.dhcc.mybatisplus.jpeg;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class ImageVerticalMerger2 {
+public class ImageVerticalMerger {
 
     public static void main(String[] args) {
         String inputDirPath = "C:\\Users\\nihaoa\\Desktop\\宝宝0-3随常见病症及食疗方";
@@ -63,8 +63,9 @@ public class ImageVerticalMerger2 {
             g.dispose();
 
             // 保存结果（建议使用PNG格式保证画质）
-            String outputPath = "output_" + (i / maxImagesPerMerge + 1) + ".png";
+            String outputPath = "C:\\Users\\nihaoa\\Desktop\\新建文件夹\\output_" + (i / maxImagesPerMerge + 1) + ".png";
             ImageIO.write(result, "png", new File(outputPath));
+            PngQuantCompressor.start(outputPath,outputPath);
         }
     }
 }

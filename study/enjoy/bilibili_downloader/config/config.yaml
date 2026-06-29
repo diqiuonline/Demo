@@ -1,12 +1,20 @@
 # Bilibili 工具配置
 
+cookie: "buvid3=25BB8BD1-C2E8-6928-7E16-5B28604CFD2362201infoc; b_nut=1777456962; _uuid=105C9A677-3DC3-3AC8-7A9A-2455614E8CDC68495infoc; home_feed_column=5; browser_resolution=2560-1279; buvid4=2E035510-5729-E846-E45D-DA68C779CEBE63103-026042918-xZ6yZkOVPay1FVo2rP8F68rybRh9Wa1/64Rr/lpCMyHIZVs1KcHneopUXmEZ3I0Y; buvid_fp=e6f4871e9049d9aec57a900167d1e7e5; SESSDATA=bd595cab%2C1793009022%2C76ee6%2A42CjD5wyVYknFuNTwgHELOpqXcC40Ws56HQF4-CfBpTmeLLy6yW8ohex31Fe4yFtKrTTcSVmxJV0dBelVNZ01xaU15NXhSOWVtOXM3ZVUwRTNlYXB6VWdnWlhZTFlSblpQSkJfRVdSNUZPNWJiSERMQnY5ekZWYUtRblM4aFhjQlRmNGZ4dFQ5YkdRIIEC; bili_jct=0916b2402e054f096d996f40c3b77111; DedeUserID=7395435; DedeUserID__ckMd5=92cd80dc098a87c5; theme-tip-show=SHOWED; rpdid=0zbfAI3s4B|qmygD4Ak|3Na|3w1Wi1LN; theme-avatar-tip-show=SHOWED; hit-dyn-v2=1; LIVE_BUVID=AUTO8917791042471031; CURRENT_QUALITY=120; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODI4MTAyOTEsImlhdCI6MTc4MjU1MTAzMSwicGx0IjotMX0.h7jY6bPNWcphsWi7k9fFqjW69fmBdayHYe0zK2P3mrc; bili_ticket_expires=1782810231; sid=59ddig9l; bp_t_offset_7395435=1219264266700324864; CURRENT_FNVAL=4048; b_lsid=E2903AFB_19F12B29ABF"                 
+# B站 SESSDATA cookie 字符串，统一复用
+
+log:
+  log_dir: "./output/logs"   # 日志文件输出目录
+  log_level: "INFO"          # 日志级别: DEBUG, INFO, WARNING, ERROR
+
 bilibili:
   mid: "2073801516"          # 目标 UP 主 ID
-  output_file: "言言抱枕_全量动态汇总报告.txt"
-  cookie: ""                 # 留空则在 CLI 中传入
+  output_dir: "./output"     # 导出文件输出目录
 
 download:
-  output_dir: "./downloads"
+  links_file: "./output/言言抱枕_全量动态汇总报告.txt"
+  output_dir: "./output/downloads"
+  ffmpeg: "D:\\Develop\\ffmpeg-master-latest-win64-gpl\\bin\\ffmpeg.exe"
   concurrency: 16
-  timeout_sec: 60
-  ffmpeg: ""                 # 留空则自动检测
+  video_quality: 127
+  audio_quality: 30251

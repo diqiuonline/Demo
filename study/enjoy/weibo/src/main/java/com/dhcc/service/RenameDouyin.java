@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
  */
 public class RenameDouyin {
     public static void main(String[] args) {
-        String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\走路摇\\走路摇zly_2024-09-03_10-55-36dy"; // 替换为你的文件夹路径
+        String folderPath = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\未归档\\晴崽"; // 替换为你的文件夹路径
 
         File directory = new File(folderPath);
         File[] files = directory.listFiles();
@@ -36,7 +36,7 @@ public class RenameDouyin {
         String str = file.getName();
         String part2 = str.substring(str.indexOf("_")+1, str.indexOf("_")+20);
         String part3 = str.substring(str.indexOf("_")+21,str.length()-4);
-        String newStr = "走路摇" + "_" + part2 + "_" + part3+ "_抖音" +str.substring(str.length()-4);
+        String newStr = "晴崽" + "_" + part2 + "_" + part3+ "_抖音" +str.substring(str.length()-4);
         //System.out.println(str+"----------->"+newStr);
         renameFile(file, newStr);
     }

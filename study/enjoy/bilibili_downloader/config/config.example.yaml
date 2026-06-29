@@ -1,12 +1,19 @@
 # 配置模板 - 复制为 config.yaml 并填入实际值
 
+cookie: ""
+
+log:
+  log_dir: "./output/logs"   # 日志文件输出目录，留空则不输出日志文件
+  log_level: "INFO"          # 日志级别: DEBUG, INFO, WARNING, ERROR
+
 bilibili:
   mid: "YOUR_UP主_MID"
-  output_file: "动态汇总报告.txt"
-  cookie: ""
+  output_dir: "./output"
 
 download:
+  links_file: "links.txt"
   output_dir: "./downloads"
-  concurrency: 16
-  timeout_sec: 60
   ffmpeg: ""
+  concurrency: 16
+  video_quality: 127
+  audio_quality: 30251

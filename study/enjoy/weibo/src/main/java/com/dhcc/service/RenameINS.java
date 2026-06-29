@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class RenameINS {
     public static void main(String[] args) {
-        String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\小蓝蓝\\littleblueplus402"; // 替换为实际文件夹路径
+        String folderPath = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\未归档\\ke08\\i_am_ke08"; // 替换为实际文件夹路径
 
         File folder = new File(folderPath);
         if (folder.isDirectory()) {
@@ -35,7 +35,7 @@ public class RenameINS {
                     int splitPos = name.length() - 4; // 倒数第4位的位置
                     String firstPart = name.substring(0, splitPos);
                     String secondPart = name.substring(splitPos);
-                    String newName = "小蓝蓝_"+formattedDateTime+"_"+name.split("_")[2]+"_"+name.split("_")[3].substring(0,name.split("_")[3].length()-4)+"_INS"+secondPart;
+                    String newName = "ke08_"+formattedDateTime+"_"+name.split("_")[2]+"_"+name.split("_")[3].substring(0,name.split("_")[3].length()-4)+"_INS"+secondPart;
                     //System.out.println(newName);
                     File newFile = new File(file.getParent(), newName);
                     if (file.renameTo(newFile)) {

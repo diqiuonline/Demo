@@ -143,13 +143,15 @@ async def get_video_info(session: aiohttp.ClientSession, cookie: str,
 
 
 async def get_playurl(session: aiohttp.ClientSession, cookie: str,
-                      bvid: str, cid: int) -> tuple[list[VideoTrack], list[AudioTrack]]:
+                      bvid: str, cid: int,
+                      video_quality: int = 127,
+                      audio_quality: int = 30251) -> tuple[list[VideoTrack], list[AudioTrack]]:
     """调用 playurl API 获取音视频轨道列表。"""
     # 先签 WBI
     params = {
         "bvid": bvid,
         "cid": str(cid),
-        "qn": "127",
+        "qn": str(video_quality),
         "fnval": "4048",
     }
     signed = await wbi_sign(params, session, cookie)
@@ -171,12 +173,12 @@ async def get_playurl(session: aiohttp.ClientSession, cookie: str,
     if data.get("code") != 0:
         raise RuntimeError(f"获取播放地址失败: {data.get('message')} / {data}")
 
-    dash = data["data"]["dash"]
+    dash = data["data"]["dash"] or {}
     video_tracks: list[VideoTrack] = []
     audio_tracks: list[AudioTrack] = []
 
     # 解析视频轨道
-    for v in dash.get("video", []):
+    for v in dash.get("video") or []:
         bt = v.get("base_url", "")
         bu = v.get("backup_url", [])
         if isinstance(bu, str):
@@ -196,7 +198,7 @@ async def get_playurl(session: aiohttp.ClientSession, cookie: str,
         video_tracks.append(vt)
 
     # 解析音频轨道
-    for a in dash.get("audio", []):
+    for a in dash.get("audio") or []:
         bt = a.get("base_url", "")
         bu = a.get("backup_url", [])
         if isinstance(bu, str):
@@ -242,9 +244,10 @@ def select_best_audio(tracks: list[AudioTrack]) -> Optional[AudioTrack]:
 
 
 async def resolve_track_url(session: aiohttp.ClientSession,
-                            track: Any) -> Optional[tuple[str, int]]:
+                            track: Any, cookie: str = "") -> Optional[tuple[str, int]]:
     """为轨道解析出可用的下载 URL + 文件大小。"""
-    result = await get_url_with_backup(session, track.base_url, track.backup_urls)
+    from enjoy.downloader.fetcher import get_url_with_backup
+    result = await get_url_with_backup(session, track.base_url, track.backup_urls, cookie)
     return result
 
 
@@ -252,7 +255,10 @@ async def download_single_video(session: aiohttp.ClientSession, cookie: str,
                                 bvid: str, cid: int, output_dir: str,
                                 ffmpeg: str, concurrency: int = 16,
                                 custom_date: str = "",
-                                custom_title: str = "") -> None:
+                                custom_title: str = "",
+                                video_quality: int = 127,
+                                audio_quality: int = 30251,
+                                create_up_subdir: bool = True) -> None:
     """下载单个视频的完整流程。"""
     # 确保 Unicode 输出
     if hasattr(sys.stdout, "reconfigure"):
@@ -292,7 +298,9 @@ async def download_single_video(session: aiohttp.ClientSession, cookie: str,
         print("[2/7] 获取播放地址...")
         try:
             video_tracks, audio_tracks = await get_playurl(
-                inner_session, cookie, bvid, cid
+                inner_session, cookie, bvid, cid,
+                video_quality=video_quality,
+                audio_quality=audio_quality,
             )
         except Exception as e:
             print(f"ERROR: 获取播放地址失败: {e}")
@@ -349,7 +357,10 @@ async def download_single_video(session: aiohttp.ClientSession, cookie: str,
         safe_display = filename_filter(display_title)
         safe_up = filename_filter(info.owner_name)
 
-        episode_dir = Path(output_dir) / safe_up
+        if create_up_subdir:
+            episode_dir = Path(output_dir) / safe_up
+        else:
+            episode_dir = Path(output_dir)
         episode_dir.mkdir(parents=True, exist_ok=True)
         print(f"  输出目录: {episode_dir}")
 

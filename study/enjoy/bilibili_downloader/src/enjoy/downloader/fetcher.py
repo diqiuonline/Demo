@@ -11,6 +11,8 @@ import subprocess
 import time
 from typing import Any, Optional
 
+import aiohttp
+
 logger = logging.getLogger("bilibili_downloader")
 
 CHUNK_SIZE = 2 * 1024 * 1024  # 2 MB
@@ -73,8 +75,9 @@ def is_mp4_complete(file_path: str) -> bool:
     return real_size == total_size and has_moov
 
 
-async def get_content_length(session: Any, url: str) -> Optional[int]:
-    """用 HEAD 获取 Content-Length，失败则降级 Range: bytes=0-0。"""
+async def get_content_length(session: Any, url: str, cookie: str = "") -> Optional[int]:
+    """用 HEAD 获取 Content-Length，失败则降级 Range: bytes=0-0。
+    注意：CDN URL 不能带 Cookie，否则会被拒绝。"""
     from enjoy.api.client import USER_AGENT, REFERRER
     headers = {"User-Agent": USER_AGENT, "Referer": REFERRER}
     # HEAD
@@ -88,29 +91,27 @@ async def get_content_length(session: Any, url: str) -> Optional[int]:
         pass
     # GET Range: bytes=0-0
     try:
-        range_headers = {
-            "User-Agent": USER_AGENT,
-            "Referer": REFERRER,
-            "Range": "bytes=0-0",
-        }
+        range_headers = dict(headers)
+        range_headers["Range"] = "bytes=0-0"
         async with session.get(url, headers=range_headers, timeout=aiohttp.ClientTimeout(total=5)) as resp:
-            cr = resp.headers.get("Content-Range")
-            if cr and "/" in cr:
-                return int(cr.rsplit("/", 1)[1])
-            cl = resp.headers.get("Content-Length")
-            if cl:
-                return int(cl)
+            if resp.status == 206:
+                cr = resp.headers.get("Content-Range")
+                if cr and "/" in cr:
+                    return int(cr.rsplit("/", 1)[1])
+                cl = resp.headers.get("Content-Length")
+                if cl:
+                    return int(cl)
     except Exception:
         pass
     return None
 
 
 async def get_url_with_backup(session: Any, base_url: str,
-                              backup_urls: list[str]) -> Optional[tuple[str, int]]:
+                              backup_urls: list[str], cookie: str = "") -> Optional[tuple[str, int]]:
     """尝试 base_url + backup_urls，返回 (url, content_length)。"""
     urls = list(backup_urls) + [base_url]
     for u in urls:
-        cl = await get_content_length(session, u)
+        cl = await get_content_length(session, u, cookie)
         if cl and cl > 0:
             return (u, cl)
     return None
