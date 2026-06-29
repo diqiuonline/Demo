@@ -12,13 +12,20 @@ import aiohttp
 from enjoy.config_loader import load_config
 from enjoy.downloader.extractor import parse_links_file
 from enjoy.downloader.fetcher import find_ffmpeg
+from enjoy.downloader.image_downloader import download_image, extract_image_id
 from enjoy.downloader.track import (
     download_single_video,
     get_video_info,
-    select_best_audio,
-    select_best_video,
 )
 from enjoy.utils.helpers import filename_filter, setup_logging
+
+# 分类到子目录的映射
+CATEGORY_DIR = {
+    "normal_video": "普通视频",
+    "charged_video": "充电视频",
+    "normal_image": "普通图片",
+    "charged_image": "充电图片",
+}
 
 
 def cmd_export(args, config: dict) -> None:
@@ -117,7 +124,7 @@ def cmd_export(args, config: dict) -> None:
 
 
 def cmd_download(args, config: dict) -> None:
-    """下载视频 - 对应原 bilibili_downloader.py。"""
+    """下载视频和图片 - 增强版，支持从 links.txt 结构化报告下载。"""
     download_cfg = config.get("download", {})
 
     links_file = args.links
@@ -162,9 +169,18 @@ def cmd_download(args, config: dict) -> None:
 
     # 读取链接
     link_entries = parse_links_file(links_file)
-    print(f"共 {len(link_entries)} 个链接")
+    print(f"共 {len(link_entries)} 个条目")
     for entry in link_entries:
-        print(f"  {entry['date']} | {entry['title']} | {entry['bvid']}")
+        cat_label = CATEGORY_DIR.get(entry["category"], entry["category"])
+        if entry["bvid"]:
+            print(f"  [{cat_label}] {entry['date']} | {entry['title']} | {entry['bvid']}")
+        else:
+            print(f"  [{cat_label}] {entry['date']} | {entry['title']} | opus:{entry['opus_id']} ({len(entry['image_urls'])} 张图片)")
+
+    # 统计
+    video_count = sum(1 for e in link_entries if e["bvid"])
+    image_count = sum(1 for e in link_entries if not e["bvid"])
+    print(f"  视频: {video_count} 个, 图文: {image_count} 个")
 
     async def _run():
         async with aiohttp.ClientSession() as session:
@@ -173,34 +189,60 @@ def cmd_download(args, config: dict) -> None:
                 custom_date = entry["date"]
                 custom_title = entry["title"]
                 bvid = entry["bvid"]
+                category = entry["category"]
+                image_urls = entry.get("image_urls", [])
+                opus_id = entry.get("opus_id", "")
+
+                # 确定子目录
+                sub_dir_name = CATEGORY_DIR.get(category, "其他")
+                target_dir = Path(output_dir) / sub_dir_name
+                target_dir.mkdir(parents=True, exist_ok=True)
 
                 print(f"\n[{i}/{len(link_entries)}] 处理: {raw_url}")
+                print(f"  分类: {sub_dir_name}")
+
                 if custom_date and custom_title:
-                    print(f"  自定义名称: {custom_date}_{custom_title}_{bvid}")
+                    print(f"  名称: {custom_date}_{custom_title}")
 
                 try:
-                    info = await get_video_info(session, cookie_str, bvid)
+                    if bvid:
+                        # === 视频下载 ===
+                        info = await get_video_info(session, cookie_str, bvid)
 
-                    # 默认下载第一 P
-                    target = info.pages[0]
-                    if len(info.pages) == 1:
-                        print(f"  单 P 视频")
+                        # 默认下载第一 P
+                        target = info.pages[0]
+                        if len(info.pages) == 1:
+                            print(f"  单 P 视频")
+                        else:
+                            print(f"  共 {len(info.pages)} P，默认下载第 1 P: {target.part}")
+
+                        await download_single_video(
+                            session=session,
+                            cookie=cookie_str,
+                            bvid=bvid,
+                            cid=target.cid,
+                            output_dir=str(target_dir),
+                            ffmpeg=ffmpeg_bin,
+                            concurrency=concurrency,
+                            custom_date=custom_date,
+                            custom_title=custom_title,
+                        )
+
+                    elif image_urls:
+                        # === 图片下载 ===
+                        # 文件名: 时间_标题_id号[_充电].ext
+                        tag_suffix = "_充电" if "charged" in category else ""
+                        safe_title = filename_filter(custom_title or "无标题")
+                        safe_date = filename_filter(custom_date or "未知日期")
+
+                        for idx, img_url in enumerate(image_urls, 1):
+                            img_id = extract_image_id(img_url)
+                            img_name = f"{safe_date}_{safe_title}_{img_id}{tag_suffix}"
+                            print(f"  下载图片 {idx}/{len(image_urls)}: {img_name}")
+                            await download_image(session, img_url, str(target_dir), img_name)
+
                     else:
-                        print(f"  共 {len(info.pages)} P，默认下载第 1 P: {target.part}")
-                        for p in info.pages[1:]:
-                            print(f"    P{p.page}: {p.part}")
-
-                    await download_single_video(
-                        session=session,
-                        cookie=cookie_str,
-                        bvid=bvid,
-                        cid=target.cid,
-                        output_dir=output_dir,
-                        ffmpeg=ffmpeg_bin,
-                        concurrency=concurrency,
-                        custom_date=custom_date,
-                        custom_title=custom_title,
-                    )
+                        print("  跳过: 无视频或图片")
 
                 except Exception as e:
                     print(f"  ERROR: 处理失败: {e}")
@@ -222,7 +264,7 @@ def main() -> None:
     """CLI 主入口。"""
     parser = argparse.ArgumentParser(
         prog="enjoy",
-        description="Bilibili 工具集 - 动态导出 + 视频下载",
+        description="Bilibili 工具集 - 动态导出 + 视频/图片下载",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
@@ -239,7 +281,7 @@ def main() -> None:
     export_parser.add_argument("--cookie", default=None, help="Cookie 字符串或 JSON 文件路径")
 
     # download 子命令
-    dl_parser = subparsers.add_parser("download", help="下载 B站视频")
+    dl_parser = subparsers.add_parser("download", help="下载 B站视频和图片")
     dl_parser.add_argument("--links", required=True, help="链接文件路径 (支持纯 URL 或结构化格式)")
     dl_parser.add_argument("--cookie", required=True, help="cookie.json 文件路径")
     dl_parser.add_argument("-o", "--output", default=None, help="下载目录 (默认: config.yaml)")
