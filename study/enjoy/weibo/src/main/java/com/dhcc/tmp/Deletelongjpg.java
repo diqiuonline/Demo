@@ -18,8 +18,10 @@ import java.util.concurrent.Future;
 
 public class Deletelongjpg {
     public static void main(String[] args) {
-        String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\rioko凉凉子\\肉扣热热子\\img\\转发微博图片"; // 替换为实际文件夹路径
-        String target = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\rioko凉凉子\\新建文件夹";
+
+        String folderPath = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\未归档\\ke08"; // 替换为实际文件夹路径
+        String target = "D:\\VMOS\\windows\\pc-192-168-2-115\\caches\\AAedss\\input";
+
         File folder = new File(folderPath);
 
         if (folder.isDirectory()) {

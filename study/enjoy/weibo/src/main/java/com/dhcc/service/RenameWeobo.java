@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class RenameWeobo {
 
     public static void main(String[] args) {
+
         String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\走路摇\\weibo"; // 替换为你的文件夹路径
 
         File directory = new File(folderPath);
@@ -23,7 +24,9 @@ public class RenameWeobo {
             ExecutorService executor = Executors.newFixedThreadPool(4); // 这里选择4个线程，可以根据需要调整
 
             for (File file : files) {
+
                 if (file.isFile() && !file.getName().contains("走路摇_") && file.getName().contains("T")) {
+
                     // 提交文件处理任务给线程池
                     executor.execute(() -> processFile(file));
                 }
@@ -50,7 +53,11 @@ public class RenameWeobo {
             return;
         }
 
+<<<<<<< HEAD
         String newName = "走路摇_" + date + "_" + result.substring(0,result.indexOf('.')) + "_weibo" +result.substring(result.length()-4);
+=======
+        String newName = "ke08_" + date + "_" + result.substring(0,result.indexOf('.')) + "_weibo" +result.substring(result.length()-4);
+>>>>>>> origin/master
         renameFile(file, newName);
         //System.out.println(file.getName()+"----------->"+newName);
     }

@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: enjoy
+Version: 0.1.0
+Summary: Bilibili 工具集 - 动态导出 + 视频/图片下载
+Requires-Python: >=3.12
+Requires-Dist: requests>=2.31
+Requires-Dist: aiohttp>=3.9
+Requires-Dist: PyYAML>=6.0

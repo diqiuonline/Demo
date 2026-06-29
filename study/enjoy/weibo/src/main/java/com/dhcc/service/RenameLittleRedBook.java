@@ -9,7 +9,9 @@ import java.util.concurrent.Executors;
  */
 public class RenameLittleRedBook {
     public static void main(String[] args) {
-        String folderPath = "D:\\VMOS\\linux\\pc-192-168-2-115\\caches\\AAedss\\小蓝蓝\\居家小蓝蓝_2024-09-11_18-01-05"; // 替换为你的文件夹路径
+
+        String folderPath = "G:\\nihaoa\\下载\\kuaidou\\Vivienne_漪个亿"; // 替换为你的文件夹路径
+
 
         File directory = new File(folderPath);
         File[] files = directory.listFiles();
@@ -35,7 +37,9 @@ public class RenameLittleRedBook {
     private static void processFile(File file) {
         String str = file.getName();
         String part3 = str.substring(str.indexOf('_')+1,str.lastIndexOf('.'));
-        String newStr = "小蓝蓝_" + part3+"_小红书"+str.substring(str.lastIndexOf('.'),str.length());
+
+        String newStr = "Vivienne_漪个亿_" + part3+"_小红书"+str.substring(str.lastIndexOf('.'),str.length());
+
         //System.out.println(str+"---------->"+newStr);
         renameFile(file, newStr);
     }
