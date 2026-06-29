@@ -1,0 +1,12 @@
+# Bilibili 工具配置
+
+bilibili:
+  mid: "2073801516"          # 目标 UP 主 ID
+  output_file: "言言抱枕_全量动态汇总报告.txt"
+  cookie: ""                 # 留空则在 CLI 中传入
+
+download:
+  output_dir: "./downloads"
+  concurrency: 16
+  timeout_sec: 60
+  ffmpeg: ""                 # 留空则自动检测

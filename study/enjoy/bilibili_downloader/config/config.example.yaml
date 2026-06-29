@@ -1,0 +1,12 @@
+# 配置模板 - 复制为 config.yaml 并填入实际值
+
+bilibili:
+  mid: "YOUR_UP主_MID"
+  output_file: "动态汇总报告.txt"
+  cookie: ""
+
+download:
+  output_dir: "./downloads"
+  concurrency: 16
+  timeout_sec: 60
+  ffmpeg: ""
