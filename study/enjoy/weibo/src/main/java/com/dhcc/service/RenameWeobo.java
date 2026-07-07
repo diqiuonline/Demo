@@ -53,11 +53,9 @@ public class RenameWeobo {
             return;
         }
 
-<<<<<<< HEAD
+
         String newName = "走路摇_" + date + "_" + result.substring(0,result.indexOf('.')) + "_weibo" +result.substring(result.length()-4);
-=======
-        String newName = "ke08_" + date + "_" + result.substring(0,result.indexOf('.')) + "_weibo" +result.substring(result.length()-4);
->>>>>>> origin/master
+
         renameFile(file, newName);
         //System.out.println(file.getName()+"----------->"+newName);
     }
